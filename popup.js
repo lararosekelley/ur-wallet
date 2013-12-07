@@ -14,7 +14,7 @@ $(document).ready(function() {
 function submitForm() {
     $.ajax({
         type: "post",
-        url: "https://my.rochester.edu/webapps/login/",
+        url: "https://my.rochester.edu/webapps/login/index",
         data: {
             user_id: username,
             login: "Login",
