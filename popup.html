@@ -4,7 +4,9 @@
         <title>UR Essentials</title>
         <style type="text/css">
             body {
-                min-width: 220px;
+                min-width: 400px;
+                background-color: #67E6EC;
+                font-family: "Courier New", Monaco, monospace; 
             }
             html {
                 height:125px;
@@ -13,10 +15,10 @@
                 margin-bottom:11px;
             }
             button {
-                width: 100%;
+                width: 70px;
             }
             input {
-                width: 100%;
+                width: 300px;
             }
         </style>
         <script src="jquery-1.10.2.min.js"></script>
@@ -24,11 +26,12 @@
     </head>
     <body>
         <form id = "loginform">
-            Username <br>
+            Welcome! Input Your BB Information. <br><br>
+            Username:
             <input type ="text" id="username"></input><br>
-            Password <br>
-            <input type ="password" id="password"></input><br>
-            <button id ="login">Login</button><a id="status"></a>
+            Password:
+            <input type ="password" id="password"></input><br><br>
+            <button id ="login">Login!</button><a id="status"></a>
         </form>
     </body>
 </html>
