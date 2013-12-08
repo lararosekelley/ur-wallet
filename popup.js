@@ -41,8 +41,10 @@ function getData() {
             name = name.replace(/\b./g, function(m){ 
                 return m.toUpperCase(); 
             });
+            alert("Welcome, " + name + "!");
         }
     });
+
     $.ajax({
         type: "get",
         dataType: "html",
