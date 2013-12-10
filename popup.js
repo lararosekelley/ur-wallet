@@ -24,16 +24,21 @@ $(document).ready(function() {
                 success: function(data) {
                     var $data = $(data);
                     console.log(data);
+
+                    //Login failed
                     if ($("#loginErrorMessage", $data).exists()) {
                         $("#status").text("Wrong username or password.");
                         $("input").css({"border":"1px solid red"});
                         $("#loader").hide();
                         $("#login").show();
-                    } else {
-                       
-
-                         $("#loader").hide();
+                    }
+                    //Login success! 
+                    else {
+                        $("#loader").hide();
                         $("body").remove();
+
+                        //store credentials
+                        chrome.storage.sync.set({'username': username, 'password': password});
 
                     }
                 },
@@ -49,6 +54,7 @@ $(document).ready(function() {
     });
 });
 
+//this no longer checks the login 
 function checkValidLogin() {
     $.ajax({
         type: "get",

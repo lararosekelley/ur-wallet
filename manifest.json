@@ -8,7 +8,8 @@
   "permissions": [
     "tabs", 
     "*://my.rochester.edu/*",
-    "*://ecard.sequoiars.com/*"
+    "*://ecard.sequoiars.com/*",
+    "storage"
   ],
   "browser_action": {
     "default_icon": "icon.png",
