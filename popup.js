@@ -54,33 +54,20 @@ $(document).ready(function() {
     });
 });
 
-//this no longer checks the login 
-function checkValidLogin() {
-    $.ajax({
-        type: "get",
-        dataType: "html",
-        url: "https://my.rochester.edu/webapps/portal/frameset.jsp",
-        success: function(data) {
-            var $data = $(data);
-
-            var name = $("#global-nav-link", $data).text().trim();
-            name = name.substr(0,name.indexOf("Activity")).trim();
-            name = name.toLowerCase();
-            name = name.replace(/\b./g, function(m){ 
-                return m.toUpperCase(); 
-            });
-            alert("Welcome, " + name + "!");
-        }
-    });
-
-    $.ajax({
-        type: "get",
-        dataType: "html",
-        url: "https://ecard.sequoiars.com/rochester/eCardCardholder/StudentOverviewPage.aspx",
-        success: function(data) {
-          var $data = $(data);
-          var dataString = $(".balanceColumn").text().trim();
-          //To-Do: split string at $ to only get xx.xx. Right now looks like "Balance$ xx.xx$ xx.xx"
-        }
-    });
+function bb_login() {
+    //log into blackboard
 }
+
+function seq_token() {
+    //return the sequioa token
+}
+
+function seq_login() {
+    //log into sequoia
+}
+
+function seq_info() {
+    //get this information
+    
+}
+
