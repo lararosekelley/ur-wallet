@@ -33,6 +33,10 @@
                 font-size:10pt;
                 font-style:italic;
             }
+
+            #loginform {
+                display:none;
+            }
         </style>
         <script src="jquery-1.10.2.min.js"></script>
         <script src="popup.js"></script>
@@ -46,9 +50,10 @@
             <input type="text" id="username"></input>
             <label for="password">Password</label>
             <input type ="password" id="password"></input>
-            <img src="loader.gif" id="loader"></img>
+           
             <button id ="login">Get started!</button>
             <p id="status"></p>
         </form>
+         <img src="loader.gif" id="loader"></img>
     </body>
 </html>
