@@ -1,37 +1,54 @@
 <!doctype html>
 <html>
     <head>
+    <link href='http://fonts.googleapis.com/css?family=Vollkorn' rel='stylesheet' type='text/css'>
         <title>UR Essentials</title>
         <style type="text/css">
             body {
-                min-width: 400px;
-                background-color: #B0E0E6;
-                font-family: "Courier New", Monaco, monospace;
+               /* min-width: 400px;*/
+                margin-left:40px;
+                margin-right:40px;
+               text-align:center;
             }
-            html {
-                height:125px;
+            h1  {
+                font-family: "Vollkorn", serif;
+                font-size:16pt;
             }
-            form {
-                margin-bottom:11px;
+            label, input, button {
+                display: inline-block;
+                vertical-align: baseline;
+                width: 125px;
             }
+
             button {
-                width: 70px;
+                margin-top:15px;
             }
-            input {
-                width: 300px;
+
+            #loader {
+                display: none;
+                margin-top:15px;
+            }
+
+            #status {
+                font-size:10pt;
+                font-style:italic;
             }
         </style>
         <script src="jquery-1.10.2.min.js"></script>
         <script src="popup.js"></script>
     </head>
     <body>
-        <form id = "loginform">
-            Welcome! Input Your BlackBoard Info. <br><br>
-            Username:
-            <input type ="text" id="username"></input><br>
-            Password:
-            <input type ="password" id="password"></input><br><br>
-            <button id ="login">Login!</button><a id="status"></a>
+        <form id="loginform">
+            <h1>
+              Blackboard Login
+            </h1>
+            <label for="username">NetID</label>
+            <input type="text" id="username"></input>
+            <label for="password">Password</label>
+            <input type ="password" id="password"></input>
+            <img src="loader.gif" id="loader"></img>
+            <button id ="login">Get started!</button>
+            <p id="status"></p>
         </form>
     </body>
 </html>
