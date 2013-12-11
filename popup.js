@@ -153,17 +153,22 @@ function fetchRealName(data) {
 }
 
 function fetchGrades(data) {
-
+    //Don't have time to implement actual feature right now, but if you guys see this before me you know what to do. I'd cycle through a while loop or something and store class and grade data in a list of the form: "class: grade". 
+    var classdata = $("#left_stream_mygrades", data).text().trim();
+    console.log(classdata)
+    console.log("Class Data should be above here") //note: it isnt
 }
 
 function setupUserData(data) {
+    //User name
     var name = fetchRealName(data).toLowerCase();
     var firstName = name.split(" ")[0];
     var lastName = name.split(" ")[1];
     constants.FIRST_NAME = firstName.charAt(0).toUpperCase() + firstName.slice(1);
     constants.LAST_NAME = lastName.charAt(0).toUpperCase() + lastName.slice(1);
 
-    
+    //Classes and grades: DOESNT WORK YET ITS A TRAP
+    var shitcrap = fetchGrades(data);
 }
 
 function setupBBUI() {
