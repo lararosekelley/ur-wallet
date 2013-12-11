@@ -4,10 +4,10 @@
     <link href='http://fonts.googleapis.com/css?family=Vollkorn' rel='stylesheet' type='text/css'>
         <title>UR Essentials</title>
         <style type="text/css">
+        
             body {
-                margin-left:40px;
-                margin-right:40px;
-                text-align:center;
+                margin:0px;
+                margin-top:-13px;
             }
             h1  {
                 font-family: "Vollkorn", serif;
@@ -35,7 +35,49 @@
 
             #loginform {
                 display:none;
+                margin-left:40px;
+                margin-right:40px;
+                text-align:center;
             }
+
+            #ui {
+                display:none;
+                width:400px;
+                height:300px;
+                background-color: #d7d9da ;
+            }
+
+            #header {
+                width: 100%;
+                height:43px;
+                text-align:left;
+                background-color:#00467f;
+                color:white;
+            }
+
+            #header h1 {
+                padding-top:4px;
+                padding-left:11px;
+                font-size:14pt;
+                display:inline-block;
+            }
+
+           #declining {
+            padding-left:64px;
+            font-size:69pt;
+           }
+
+           .healthy {
+                color:green;
+           }
+
+           .semicritical {
+                color:orange;
+           }
+
+           .critical {
+                color:red;
+           }
         </style>
         <script src="jquery-2.0.3.min.js"></script>
         <script src="popup.js"></script>
@@ -54,5 +96,15 @@
             <p id="status"></p>
         </form>
         <img src="loader.gif" id="loader"></img>
+
+        <div id="ui">
+            <div id="header">
+                <h1></h1>
+            </div>
+            <div id="content">
+            <h1 id = "declining"></h1>
+            </div>
+
+        </div>
     </body>
 </html>
