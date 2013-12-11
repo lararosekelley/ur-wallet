@@ -14,7 +14,7 @@ var constants = {
     SEQUOIA_BALANCE_URL : "https://ecard.sequoiars.com/eCardServices/eCardServices.svc/WebHttp/GetAccountHolderInformationForCurrentUser"
 }
 
-//Check if User is already logged into BB
+//Check if user is already logged into BB
 function checkLoggedIn(data) {
     console.log("Checking if user logged in")
     if ($("#loginErrorMessage", data).exists()) {
@@ -48,6 +48,7 @@ function loginWithSavedCredentials(callback) {
                 success: function(data) {
                     console.log("Saved credentials ajax request sucess")
                     var $data = $(data);
+                    console.log($data)
                     setupUserData($data);
                     authenticateSequoia();
                     callback(checkLoggedIn($data));
@@ -68,7 +69,7 @@ function loginWithSavedCredentials(callback) {
 
 //What to do after user fills out form
 $(document).ready(function() {
-    chrome.browserAction.setBadgeText({'text':"$999"});
+    //chrome.browserAction.setBadgeText({'text':"$999"});
     $("#loader").show();
     loginWithSavedCredentials(function(result) {
         console.log("Waiting on results of loginWithSavedCredentials")
@@ -77,7 +78,7 @@ $(document).ready(function() {
             console.log("logged in")
             $("#loader").hide();
             setupBBUI();
-           
+            
         } 
         else {
             $("#status").text("Wrong username or password.");
@@ -151,21 +152,26 @@ function fetchRealName(data) {
     return name;
 }
 
+function fetchGrades(data) {
+
+}
+
 function setupUserData(data) {
     var name = fetchRealName(data).toLowerCase();
     var firstName = name.split(" ")[0];
     var lastName = name.split(" ")[1];
     constants.FIRST_NAME = firstName.charAt(0).toUpperCase() + firstName.slice(1);
     constants.LAST_NAME = lastName.charAt(0).toUpperCase() + lastName.slice(1);
+
+    
 }
 
 function setupBBUI() {
-    $("#header h1").text("Welcome, " + constants.FIRST_NAME + ".")
+    $("#header h1").text("Welcome, " + constants.FIRST_NAME + " " + constants.LAST_NAME)
     $("#ui").show();
 }
 
 function authenticateSequoia() {
- 
     $.ajax({
         type: "get",
         dataType: "html",
@@ -188,19 +194,33 @@ function authenticateSequoia() {
                         url: constants.SEQUOIA_BALANCE_URL,
                         success: function(data) {
                             $data = jQuery.parseJSON(data);
-                                var cash = $data.d._ItemList[1].BalanceInDollarsStr;
-                                var rawCash =$data.d._ItemList[1].BalanceInDollars;
-                         chrome.browserAction.setBadgeText({'text':cash});
-                         $("#declining").text(cash);
-                         if (rawCash < 10) {
-                            $("#declining").addClass("critical");
-                         } else if (rawCash > 10 && rawCash < 50 ) {
-                            $("#declining").addClass("semicritical");
-                         }else if (rawCash > 50 ) {
-                            $("#declining").addClass("healthy");
-                         }
+                            console.log("Sequoia data:")
+                            console.log($data)
+                                var uros = $data.d._ItemList[0].BalanceInDollarsStr;
+                                var rawUros = $data.d._ItemList[0].BalanceInDollars;
+                                var declining = $data.d._ItemList[1].BalanceInDollarsStr;
+                                var rawDeclining =$data.d._ItemList[1].BalanceInDollars;
+                             //chrome.browserAction.setBadgeText({'text':declining});
+                             //The badge is not very useful, as it chops off after 3 characters. We can bring it back eventually, but for money it's not pretty-looking or helpful.
+                             $("#declining").text("Declining: " + declining);
+                             if (rawDeclining < 50) {
+                                $("#declining").addClass("critical");
+                             } else if (rawDeclining > 50 && rawDeclining < 100 ) {
+                                $("#declining").addClass("semicritical");
+                             }else if (rawDeclining > 100 ) {
+                                $("#declining").addClass("healthy");
+                             }
 
-
+                             $("#uros").text("URos: " + uros);
+                             if (rawUros < 10) {
+                                $("#uros").addClass("critical");
+                             }
+                             else if (rawUros > 10 && rawUros < 25) {
+                                $("#uros").addClass("semicritical");
+                             }
+                             else if (rawUros > 25) {
+                                $("#uros").addClass("healthy");
+                             }
                         }
                     });
                 }

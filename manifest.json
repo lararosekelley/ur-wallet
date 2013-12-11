@@ -1,9 +1,9 @@
 {
   "manifest_version": 2,
 
-  "name": "UR Essentials",
+  "name": "Better BlackBoard",
   "description": "This extension takes the essential information from BlackBoard and displays it.",
-  "version": "1.0",
+  "version": "0.9",
 
   "permissions": [
     "tabs", 
