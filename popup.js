@@ -205,27 +205,25 @@ function authenticateSequoia() {
                                 var rawUros = $data.d._ItemList[0].BalanceInDollars;
                                 var declining = $data.d._ItemList[1].BalanceInDollarsStr;
                                 var rawDeclining = $data.d._ItemList[1].BalanceInDollars;
-                            //chrome.browserAction.setBadgeText({'text':declining});
-                            //The badge is not very useful, as it chops off after 3 characters. We can bring it back eventually, but for money it's not pretty-looking or helpful.
-                             $("#declining").text("Declining: " + declining);
-                             if (rawDeclining < 50) {
-                                $("#declining").addClass("critical");
-                             } else if (rawDeclining > 50 && rawDeclining < 100 ) {
-                                $("#declining").addClass("semicritical");
-                             }else if (rawDeclining > 100 ) {
-                                $("#declining").addClass("healthy");
-                             }
+                            $("#declining").text("Declining: " + declining);
+                                 if (rawDeclining < 50) {
+                                    $("#declining").addClass("critical");
+                                 } else if (rawDeclining > 50 && rawDeclining < 100 ) {
+                                    $("#declining").addClass("semicritical");
+                                 }else if (rawDeclining > 100 ) {
+                                    $("#declining").addClass("healthy");
+                                 }
 
-                             $("#uros").text("URos: " + uros);
-                             if (rawUros < 10) {
-                                $("#uros").addClass("critical");
-                             }
-                             else if (rawUros > 10 && rawUros < 25) {
-                                $("#uros").addClass("semicritical");
-                             }
-                             else if (rawUros > 25) {
-                                $("#uros").addClass("healthy");
-                             }
+                            $("#uros").text("URos: " + uros);
+                                 if (rawUros < 10) {
+                                    $("#uros").addClass("critical");
+                                 }
+                                 else if (rawUros > 10 && rawUros < 25) {
+                                    $("#uros").addClass("semicritical");
+                                 }
+                                 else if (rawUros > 25) {
+                                    $("#uros").addClass("healthy");
+                                 }
                         }
                     });
                 }
@@ -237,5 +235,5 @@ function authenticateSequoia() {
 function logout() {
     $("#ui").hide();
     $("#loginform").show();
-    //storage.remove({username, password});
+    storage.clear();
 }
