@@ -77,11 +77,10 @@ $(document).ready(function() {
             //We are in
             console.log("logged in")
             $("#loader").hide();
-            setupBBUI();
-            
+            setupBBUI();    
         } 
         else {
-            $("#status").text("Wrong username or password.");
+            $("#status").text("Please enter a username and password.");
             $("input").css({"border":"1px solid red"});
             $("#loader").hide();
             $("#login").show();
@@ -93,7 +92,12 @@ $(document).ready(function() {
             });
         }
     })
-
+    //Logout the user if they choose to
+    $("#logout").click(function(event) {
+        event.preventDefault();
+        console.log("Logging out...")
+        logout();
+    });
 });
 
 //Log in the user to BB for the first time
@@ -166,13 +170,10 @@ function setupUserData(data) {
     var lastName = name.split(" ")[1];
     constants.FIRST_NAME = firstName.charAt(0).toUpperCase() + firstName.slice(1);
     constants.LAST_NAME = lastName.charAt(0).toUpperCase() + lastName.slice(1);
-
-    //Classes and grades: DOESNT WORK YET ITS A TRAP
-    var shitcrap = fetchGrades(data);
 }
 
 function setupBBUI() {
-    $("#header h1").text("Welcome, " + constants.FIRST_NAME + " " + constants.LAST_NAME)
+    $("#header h1").text("Welcome, " + constants.FIRST_NAME + " " + constants.LAST_NAME + "   ")
     $("#ui").show();
 }
 
@@ -232,4 +233,10 @@ function authenticateSequoia() {
             });
         }
     });
+}
+
+function logout() {
+    $("#ui").hide();
+    $("#loginform").show();
+    //storage.remove({username, password});
 }
