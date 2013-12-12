@@ -18,8 +18,7 @@ var constants = {
 function checkLoggedIn(data) {
     console.log("Checking if user logged in")
     if ($("#loginErrorMessage", data).exists()) {
-        console.log("wrong uname/pwd")
-       
+        console.log("wrong uname/pwd") 
         return false;
     }
     else {
@@ -205,9 +204,9 @@ function authenticateSequoia() {
                                 var uros = $data.d._ItemList[0].BalanceInDollarsStr;
                                 var rawUros = $data.d._ItemList[0].BalanceInDollars;
                                 var declining = $data.d._ItemList[1].BalanceInDollarsStr;
-                                var rawDeclining =$data.d._ItemList[1].BalanceInDollars;
-                             //chrome.browserAction.setBadgeText({'text':declining});
-                             //The badge is not very useful, as it chops off after 3 characters. We can bring it back eventually, but for money it's not pretty-looking or helpful.
+                                var rawDeclining = $data.d._ItemList[1].BalanceInDollars;
+                            //chrome.browserAction.setBadgeText({'text':declining});
+                            //The badge is not very useful, as it chops off after 3 characters. We can bring it back eventually, but for money it's not pretty-looking or helpful.
                              $("#declining").text("Declining: " + declining);
                              if (rawDeclining < 50) {
                                 $("#declining").addClass("critical");
