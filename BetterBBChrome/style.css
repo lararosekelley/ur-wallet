@@ -1,0 +1,24 @@
+body {
+    width: 300px;
+    font-family: 'Roboto Condensed', sans-serif;
+    background-image: url("bg.jpg");
+}
+
+.centered {
+    text-align: center;
+}
+
+#login-button {
+    margin-top:10px;
+   margin-left: 31px;
+}
+
+#login-form {
+    max-width: 150px;
+    margin: 0 auto;
+}
+
+label {
+    font-weight: lighter;
+}
+
