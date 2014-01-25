@@ -1,40 +1,51 @@
 <!doctype html>
 <html ng-app="bbApp" ng-csp lang="en">
-  <head>
-    <meta charset="utf-8" />
+<head>
+  <meta charset="utf-8" />
 
-    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.3.0/pure-nr-min.css">
-    <link href='http://fonts.googleapis.com/css?family=Roboto+Condensed:300italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
-    <script src="angular.min.js"></script>
-    <script src="controllers.js"></script>
-   <link rel="stylesheet" href="style.css">
-   <link rel="stylesheet" href="angular-csp.css">
+  <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.3.0/pure-nr-min.css">
+  <link href='http://fonts.googleapis.com/css?family=Roboto+Condensed:300italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
+  <script src="angular.min.js"></script>
+  <script src="controllers.js"></script>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="angular-csp.css">
+</head>
 
-  </head>
-  <body ng-controller="MasterController" ng-class="{rochester: mode == 'login'}">
+<body ng-controller="MasterController" ng-class="{rochester: mode == 'login'}">
+  <!-- Begin pre-login view -->
   <div id="pre-login" ng-show="mode == 'pre_login'">
-  <h2>Do you attend the University of Rochester?</h2>
-  <p>The extension only works for students at the U of R right now.</p>
-  <button class="button-success pure-button" style="margin-right:10px" ng-click="mode = 'login'">Yes!</button><button class="button-error pure-button" ng-click="uninstall()">No, uninstall</button>
+    <h2>Do you attend the University of Rochester?</h2>
+    <p>The extension only works for students at the U of R right now.</p>
+    <button class="button-success pure-button" style="margin-right:10px" ng-click="proceed()">Yes!</button>
+    <button class="button-error pure-button" ng-click="uninstall()">No, uninstall</button>
   </div>
-<div id="login-form" ng-controller="LoginController" >
-  <form class="pure-form pure-form-stacked" ng-show="mode =='login'" name="loginForm">
-    <fieldset>
+  <!-- End pre-login view -->
+
+  <!--  Begin login view -->
+  <div id="login-form" ng-controller="LoginController" >
+    <form class="pure-form pure-form-stacked" ng-show="mode =='login'" name="loginForm">
+      <fieldset>
         <legend class="centered">YoUR Wallet</legend>
+        <label for="netid">NetID</label>
+        <input id="netid" type="text" ng-model="user.netid" required>
 
-      
-          <label for="netid">NetID</label>
-          <input id="netid" type="text" ng-model="user.netid">
-
-          <label for="password">Password</label>
-          <input id="password" type="password" ng-model="user.password">
-
-
-
+        <label for="password">Password</label>
+        <input id="password" type="password" ng-model="user.password" required>
+        {{mode}}
         <button id="login-button" type="submit" class="pure-button pure-button-primary" ng-click="doLogin(loginForm)">Sign in</button>
-    </fieldset>
-</form>
-</div>
+      </fieldset>
+    </form>
+  </div>
+  <!--  End login view -->
+
+  <!-- Begin wallet view -->
+  <div id="wallet" ng-controller="WalletController" ng-show="mode == 'wallet'">
+    
+      <h2>Declining: {{funds.declining}}</h2>
+      <h2>Euros: {{funds.euros}}</h2>
+    </div>
+ 
+  <!-- End wallet view -->
   
-  </body>
+</body>
 </html>
