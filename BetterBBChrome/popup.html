@@ -6,6 +6,7 @@
   <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.3.0/pure-nr-min.css">
   <link href='http://fonts.googleapis.com/css?family=Roboto+Condensed:300italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
   <script src="angular.min.js"></script>
+  <script src="app.js"></script>
   <script src="controllers.js"></script>
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="angular-csp.css">
@@ -14,10 +15,11 @@
 <body ng-controller="MasterController" ng-class="{rochester: mode == 'login'}">
   <!-- Begin pre-login view -->
   <div id="pre-login" ng-show="mode == 'pre_login'">
+
     <h2>Do you attend the University of Rochester?</h2>
     <p>The extension only works for students at the U of R right now.</p>
     <button class="button-success pure-button" style="margin-right:10px" ng-click="proceed()">Yes!</button>
-    <button class="button-error pure-button" ng-click="uninstall()">No, uninstall</button>
+    <button class="button-error pure-button-disabled" ng-click="uninstall()">No, uninstall</button>
   </div>
   <!-- End pre-login view -->
 
@@ -31,7 +33,6 @@
 
         <label for="password">Password</label>
         <input id="password" type="password" ng-model="user.password" required>
-        {{mode}}
         <button id="login-button" type="submit" class="pure-button pure-button-primary" ng-click="doLogin(loginForm)">Sign in</button>
       </fieldset>
     </form>
