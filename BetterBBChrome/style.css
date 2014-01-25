@@ -1,5 +1,6 @@
 body {
     width: 300px;
+    min-height: 226px;
     font-family: 'Roboto Condensed', sans-serif;
 }
 
@@ -11,10 +12,59 @@ body {
     text-align: center;
 }
 
-#login-button {
-    margin-top:10px;
-   margin-left: 31px;
+#login-message {
+    position:absolute;
+    bottom: 21px;
+    right: 74px;
+    -webkit-transition: .5s linear all;
+    transition: .5s linear all;
+    opacity: 1;
 }
+
+#login-message.ng-hide {
+    opacity: 0;
+}
+
+#login-message.ng-hide-add, #login-message.ng-hide-remove {
+    display: block!important;
+}
+
+
+
+#login-button {
+   position: absolute;
+   bottom: 16px;
+   right: 98px;
+  
+
+
+}
+
+#login-button.ng-hide-remove,
+#login-button.ng-hide-add {
+    display:block!important;
+}
+
+
+#login-button.ng-hide-add {
+    -webkit-animation-name: slideOutLeft;
+    animation-name: slideOutLeft;
+}
+
+#login-button.ng-hide-remove {
+    -webkit-animation-name: slideInLeft;
+    animation-name: slideInLeft;
+    -webkit-animation-delay: 2s;
+
+}
+
+#login-loader {
+    position:absolute;
+    bottom: 16px;
+    right: 131px;
+
+}
+
 
 #login-form {
     max-width: 150px;
@@ -28,32 +78,48 @@ body {
     margin-left: 7px;
 }
 
+.message {
+    background: red;
+    padding-top: .2em;
+    padding-right:1em;
+    padding-left: 1em;
+    padding-bottom: .2em;
+    border-radius: 3px;
+    color: white;
+
+
+}
 
 label {
     font-weight: lighter;
 }
 
-  .button-success,
-        .button-error,
-        .button-warning,
-        .button-secondary {
-            color: white;
-            border-radius: 4px;
-            text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
-        }
 
-        .button-success {
-            background: rgb(0, 219, 52); /* this is a green */
-        }
 
-        .button-error {
-            background: rgb(202, 0, 0); /* this is a maroon */
-        }
 
-        .button-warning {
-            background: rgb(223, 117, 20); /* this is an orange */
-        }
+.button-success,
+.button-error,
+.button-warning,
+.button-secondary {
+    color: white;
+    border-radius: 4px;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+}
 
-        .button-secondary {
-            background: rgb(66, 184, 221); /* this is a light blue */
-        }
+.button-success {
+    background: rgb(0, 219, 52); /* this is a green */
+}
+
+.button-error {
+    background: rgb(202, 0, 0); /* this is a maroon */
+}
+
+.button-warning {
+    background: rgb(223, 117, 20); /* this is an orange */
+}
+
+.button-secondary {
+    background: rgb(66, 184, 221); /* this is a light blue */
+}
+
+

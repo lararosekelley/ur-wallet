@@ -1,4 +1,4 @@
-var bbApp = angular.module('bbApp', ['bbAppControllers'], function($httpProvider) {
+var bbApp = angular.module('bbApp', ['bbAppControllers', 'ngAnimate'], function($httpProvider) {
     // Use x-www-form-urlencoded Content-Type
   $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
  
@@ -53,5 +53,36 @@ var bbApp = angular.module('bbApp', ['bbAppControllers'], function($httpProvider
     return angular.isObject(data) && String(data) !== '[object File]' ? param(data) : data;
   }];
 });
+
+
+
+bbApp.directive('loader', function () {
+    return {
+      restrict: 'AC',
+      template: '<div class="windows8">'+
+                '<div class="wBall" id="wBall_1">'+
+                '<div class="wInnerBall">'+
+                '</div>'+
+                '</div>'+
+                '<div class="wBall" id="wBall_2">'+
+                '<div class="wInnerBall">'+
+                '</div>'+
+                '</div>'+
+                '<div class="wBall" id="wBall_3">'+
+                '<div class="wInnerBall">'+
+                '</div>'+
+                '</div>'+
+                '<div class="wBall" id="wBall_4">'+
+                '<div class="wInnerBall">'+
+                '</div>'+
+                '</div>'+
+                '<div class="wBall" id="wBall_5">'+
+                '<div class="wInnerBall">'+
+                '</div>'+
+                '</div>'+
+                '</div>'
+  }
+});
+
 
 var bbAppControllers = angular.module('bbAppControllers', []);
