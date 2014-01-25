@@ -11,22 +11,26 @@
    <link rel="stylesheet" href="angular-csp.css">
 
   </head>
-  <body>
+  <body ng-controller="MasterController" ng-class="{rochester: mode == 'login'}">
+  <div id="pre-login" ng-show="mode == 'pre_login'">
+  <h2>Do you attend the University of Rochester?</h2>
+  <button class="button-success pure-button" style="margin-right:10px" ng-click="mode = 'login'">Yes!</button><button class="button-error pure-button" ng-click="uninstall()">No, uninstall</button>
+  </div>
 <div id="login-form" ng-controller="LoginController" >
-  <form class="pure-form pure-form-stacked" ng-show="mode =='login'">
+  <form class="pure-form pure-form-stacked" ng-show="mode =='login'" name="loginForm">
     <fieldset>
         <legend class="centered">YoUR Wallet</legend>
 
       
           <label for="netid">NetID</label>
-          <input id="netid" type="text">
+          <input id="netid" type="text" ng-model="user.netid">
 
           <label for="password">Password</label>
-          <input id="password" type="password">
-  
+          <input id="password" type="password" ng-model="user.password">
 
 
-        <button id="login-button" type="submit" class="pure-button pure-button-primary">Sign in</button>
+
+        <button id="login-button" type="submit" class="pure-button pure-button-primary" ng-click="doLogin(loginForm)">Sign in</button>
     </fieldset>
 </form>
 </div>
