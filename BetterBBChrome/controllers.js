@@ -20,7 +20,7 @@ bbAppControllers.controller('MasterController',
 
 /* Handles the logging in logic */
 bbAppControllers.controller('LoginController', 
-    ['$scope', '$timeout', '$http', '$location', '$timeout', function($scope, $timeout, $http, $location, $timeout) {
+    ['$scope', '$timeout', '$http', '$location', 'bbLoginService', function($scope, $timeout, $http, $location, bbLoginService) {
 
     $scope.sequoia = {
         token_url   : "https://my.rochester.edu/webapps/bb-ecard-sso-bb_bb60/token.jsp",
@@ -54,33 +54,37 @@ bbAppControllers.controller('LoginController',
  
     var tryBBLogin = function() {
         $scope.loginRequestPending = true;
-        var postData = {
-            user_id: $scope.user.netid,
-            encoded_pw: window.btoa($scope.user.password),
-            encoded_pw_unicode: ".",
-            login: "Login",
-            action: "login"
-        }
-        $http({
-            withCredentials:true,
-            url: $scope.bb.login_url,
-            method: "POST",
-            data: postData,
-            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-        }).success(function (data, status, headers, config) {
+        // var postData = {
+        //     user_id: $scope.user.netid,
+        //     encoded_pw: window.btoa($scope.user.password),
+        //     encoded_pw_unicode: ".",
+        //     login: "Login",
+        //     action: "login"
+        // }
+        // $http({
+        //     withCredentials:true,
+        //     url: $scope.bb.login_url,
+        //     method: "POST",
+        //     data: postData,
+        //     headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        // }).success(function (data, status, headers, config) {
            
-            if(data.indexOf('topframe.logout.label') !== -1) {
-                console.log("Login success")
-            } else {
-                setError("wrong netid/pass");
-            }
+        //     if(data.indexOf('topframe.logout.label') !== -1) {
+        //         $scope.$parent.mode = "wallet"
+        //     } else {
+        //         setError("wrong netid/pass");
+        //     }
 
-            $scope.loginRequestPending = false;
+        //     $scope.loginRequestPending = false;
 
-        }).error(function (data, status, headers, config) {
-            setError("bb connection failed");
-            $scope.loginRequestPending = false;
-        });
+        // }).error(function (data, status, headers, config) {
+        //     setError("bb connection failed");
+        //     $scope.loginRequestPending = false;
+        // });
+        bbLoginService.async($scope.user).then(function(d) {
+            console.log(d)
+        })
+
 
     }
 
@@ -103,8 +107,8 @@ bbAppControllers.controller('WalletController',
     ['$scope', '$timeout', '$http', '$location', function($scope, $timeout, $http, $location) {
 
    $scope.funds = {
-        euros: 0,
-        declining: 0
+        uros: 999,
+        declining: 789
    }
    
 }]);

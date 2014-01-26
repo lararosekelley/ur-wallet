@@ -93,8 +93,13 @@ body {
 label {
     font-weight: lighter;
 }
+#wallet p  {
+    font-family: "Roboto Condensed";
+}
 
-
+#wallet h1 {
+    font-family: "Roboto Condensed";
+}
 
 
 .button-success,

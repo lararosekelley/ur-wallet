@@ -49,10 +49,23 @@
 
   <!-- Begin wallet view -->
   <div id="wallet" ng-controller="WalletController" ng-show="mode == 'wallet'">
-    
-      <h2>Declining: {{funds.declining}}</h2>
-      <h2>Euros: {{funds.euros}}</h2>
-    </div>
+     <div class="pure-g">
+        <div class="pure-u-1-2 centered">
+            <!--
+            By default, grid units don't have any margin/padding.
+            If you want to add these, put them in a child container.
+            -->
+            <p>Declining</p>
+            <h1>${{funds.declining}}</h1>
+        </div>
+
+        <div class="pure-u-1-2 centered">
+            <p>Uros/Flex</p>
+            <h1>${{funds.uros}}</h1>
+        </div>
+
+    </div>  
+  </div>
  
   <!-- End wallet view -->
   

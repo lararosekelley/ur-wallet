@@ -55,6 +55,35 @@ var bbApp = angular.module('bbApp', ['bbAppControllers', 'ngAnimate'], function(
 });
 
 
+bbApp.factory('bbLoginService', function($http) {
+  console.log("wtf?")
+  var bbLoginService = {
+    async: function(user) {
+      var postData = {
+            user_id: user.netid,
+            encoded_pw: window.btoa(user.password),
+            encoded_pw_unicode: ".",
+            login: "Login",
+            action: "login"
+      }
+      var promise = $http({
+            withCredentials:true,
+            url: "https://my.rochester.edu/webapps/login/index",
+            method: "POST",
+            data: postData,
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).then(function(response) {
+            console.log(response)
+            return response.data;
+        });
+
+        return promise;
+
+    }
+  };
+  return bbLoginService;
+});
+
 
 bbApp.directive('loader', function () {
     return {
