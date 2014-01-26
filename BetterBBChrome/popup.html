@@ -47,16 +47,14 @@
   </div>
   <!--  End login view -->
 
-  <!-- Begin wallet view -->
-  <div id="wallet" ng-controller="WalletController" ng-show="mode == 'wallet'">
+  <!-- Begin main-ui view -->
+  <div id="main-ui" ng-controller="MainUIController" ng-show="mode == 'main_ui'">
     <div class="pure-menu pure-menu-open pure-menu-horizontal">
         <ul>
-            <li class="pure-menu-selected"><a href="#">Wallet</a></li>
-            <li><a href="#">Syllibi</a></li>
-            <li><a href="#">Settings</a></li>
+            <li ng-class="{'pure-menu-selected': item == selectedItem}" ng-repeat="item in menuItems"><a href="#" ng-click="select(item)">{{item}}</a></li>
         </ul>
     </div>
-     <div class="pure-g">
+     <div class="pure-g" ng-controller="WalletController" ng-show="selectedItem == 'Wallet'">
         <div class="pure-u-1-2 centered">
             <!--
             By default, grid units don't have any margin/padding.
@@ -72,9 +70,25 @@
         </div>
 
     </div>  
+    <div id="settings" class="pure-g" ng-controller="SettingsController" ng-show="selectedItem == 'Settings'">
+        <div class="pure-u-1 centered">
+            <!--
+            By default, grid units don't have any margin/padding.
+            If you want to add these, put them in a child container.
+            -->
+         
+            <label for="remember">
+            Remember me  <input id="remember" type="checkbox"> 
+            </label>
+
+        </div>
+     
+
+        
+    </div>  
   </div>
  
-  <!-- End wallet view -->
+  <!-- End main-ui view -->
   
 </body>
 </html>

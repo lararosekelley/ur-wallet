@@ -6,7 +6,7 @@ bbAppControllers.controller('MasterController',
     //pre_login   - asks user if they attend U of R
     //login       - login form 
     //wallet       - shows euros and declining
-    $scope.mode = "login";
+    $scope.mode = "main_ui";
 
     $scope.proceed = function() {
         $scope.mode = "login";
@@ -27,10 +27,6 @@ bbAppControllers.controller('LoginController',
         auth_url    : "https://ecard.sequoiars.com/eCardServices/AuthenticationHandler.ashx",
         balance_url : "https://ecard.sequoiars.com/eCardServices/eCardServices.svc/WebHttp/GetAccountHolderInformationForCurrentUser",
         token: ""
-    }
-
-    $scope.bb = {
-        login_url : "https://my.rochester.edu/webapps/login/index"
     }
 
     $scope.user = {
@@ -56,7 +52,7 @@ bbAppControllers.controller('LoginController',
         $scope.loginRequestPending = true;
         bbLoginService.async($scope.user).then(function(d) {
            if(d.indexOf('topframe.logout.label') !== -1) {
-                $scope.$parent.mode = "wallet"
+                $scope.$parent.mode = "main_ui"
             } else {
                 setError("wrong netid/pass");
             }
@@ -83,7 +79,16 @@ bbAppControllers.controller('LoginController',
    
 }]);
 
+bbAppControllers.controller('MainUIController', 
+     ['$scope', '$timeout', '$http', '$location', function($scope, $timeout, $http, $location) {
 
+        $scope.menuItems = ['Wallet', 'Settings'];
+        $scope.selectedItem = 'Wallet';
+
+        $scope.select = function(item) {
+            $scope.selectedItem = item;
+        }
+}])
 /* Handles the wallet*/
 bbAppControllers.controller('WalletController', 
     ['$scope', '$timeout', '$http', '$location', function($scope, $timeout, $http, $location) {
@@ -93,4 +98,10 @@ bbAppControllers.controller('WalletController',
         declining: 789
    }
    
+}]);
+
+bbAppControllers.controller('SettingsController',
+    ['$scope', function($scope) {
+
+
 }]);
