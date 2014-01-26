@@ -55,10 +55,11 @@ var bbApp = angular.module('bbApp', ['bbAppControllers', 'ngAnimate'], function(
 });
 
 
-bbApp.factory('bbLoginService', function($http) {
+bbApp.factory('bbLoginService', function($http, $q) {
   console.log("wtf?")
-  var bbLoginService = {
+  return {
     async: function(user) {
+      var deferred = $q.defer();
       var postData = {
             user_id: user.netid,
             encoded_pw: window.btoa(user.password),
@@ -66,22 +67,23 @@ bbApp.factory('bbLoginService', function($http) {
             login: "Login",
             action: "login"
       }
-      var promise = $http({
+      $http({
             withCredentials:true,
             url: "https://my.rochester.edu/webapps/login/index",
             method: "POST",
             data: postData,
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-        }).then(function(response) {
-            console.log(response)
-            return response.data;
+        }).success(function(resp) {
+           deferred.resolve(resp);
+        }).error(function(resp) {
+            deferred.reject("bb connection fail")
         });
 
-        return promise;
+
+        return deferred.promise;
 
     }
   };
-  return bbLoginService;
 });
 
 

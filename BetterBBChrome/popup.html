@@ -32,7 +32,7 @@
   <div id="login-form" ng-controller="LoginController" >
     <form class="pure-form pure-form-stacked" ng-show="mode =='login'" name="loginForm">
       <fieldset>
-        <legend class="centered">YoUR Wallet</legend>
+        <legend class="centered">Better Blackboard</legend>
         <label for="netid">NetID</label>
         <input id="netid" type="text" ng-model="user.netid" required>
 
@@ -49,6 +49,13 @@
 
   <!-- Begin wallet view -->
   <div id="wallet" ng-controller="WalletController" ng-show="mode == 'wallet'">
+    <div class="pure-menu pure-menu-open pure-menu-horizontal">
+        <ul>
+            <li class="pure-menu-selected"><a href="#">Wallet</a></li>
+            <li><a href="#">Syllibi</a></li>
+            <li><a href="#">Settings</a></li>
+        </ul>
+    </div>
      <div class="pure-g">
         <div class="pure-u-1-2 centered">
             <!--
