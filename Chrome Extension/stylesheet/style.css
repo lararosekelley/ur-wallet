@@ -1,0 +1,59 @@
+body {
+	margin: 0px;
+}
+
+#header {
+	margin: 0px;
+	font-family: 'Roboto', sans-serif;
+	font-weight: 300;
+	font-size: 16pt;
+	font-style: italic;
+	color: white;
+	background-color: #152140;
+}
+
+#login-page {
+	margin: 0px;
+	background-color: #F1EDD2;
+	width: 300px;
+	height: 200px;
+	text-align: center;
+	display: none;
+} 
+
+#load-page {
+	margin: 0px;
+	display: none;
+}
+
+#main-page {
+	margin: 0px;
+	background-color: #F1EDD2;
+	width: 300px;
+	height: 300px;
+	text-align: center;
+	display: none;
+}
+
+#login-form {
+	padding-left: 20px;
+	padding-right: 20px;
+}
+
+input {
+	display: inline-block;
+	vertical-align: baseline;
+	width: 150px;
+}
+
+.high {
+	color: green;
+}
+
+.medium {
+	color: orange;
+}
+
+.low {
+	color: red;
+}

@@ -1,0 +1,22 @@
+{
+  "manifest_version": 2,
+  "name": "UR Wallet",
+  "description": "A Tool for University of Rochester Students.",
+  "version": "1.0",
+
+  "permissions": [
+    "tabs",
+    "http://*/*", 
+    "https://*/*",
+    "*://my.rochester.edu/*",
+    "*://ecard.sequoiars.com/*",
+    "storage",
+    "management",
+    "tabs"
+  ],
+
+  "browser_action": {
+    "default_icon": "logo.jpg",
+    "default_popup": "popup.html"
+  }
+}
