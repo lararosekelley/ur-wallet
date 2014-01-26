@@ -5,8 +5,9 @@ bbAppControllers.controller('MasterController',
     //View modes:    
     //pre_login   - asks user if they attend U of R
     //login       - login form 
-    //wallet       - shows euros and declining
-    $scope.mode = "pre_login";
+    //main_ui     - the ui containing wallet/etc.
+
+    $scope.mode = "login";
 
     $scope.proceed = function() {
         $scope.mode = "login";
@@ -14,6 +15,10 @@ bbAppControllers.controller('MasterController',
 
     $scope.uninstall = function() {
         chrome.management.uninstallSelf();
+    }
+
+    $scope.person = {
+        real_name: ""
     }
 
 }]);
@@ -51,6 +56,7 @@ bbAppControllers.controller('LoginController',
         bbLoginService.async($scope.user).then(function(d) {
            if(d.indexOf('topframe.logout.label') !== -1) {
                 $scope.$parent.mode = "main_ui"
+                $scope.$parent.person.real_name = parseRealName(d);
             } else {
                 setError("wrong netid/pass");
             }
@@ -71,6 +77,16 @@ bbAppControllers.controller('LoginController',
         $timeout(function() {
             $scope.loginError.visible = false;
         }, 2000);
+    }
+
+
+    var parseRealName = function(data) {
+        var beginIndex = data.indexOf('"User Avatar Image" alt="">') + 27;
+        data = data.slice(beginIndex);
+        var endIndex = data.indexOf("<");
+        var name = data.substring(0, endIndex);
+    
+        return name;
     }
 
 

@@ -49,6 +49,7 @@
 
   <!-- Begin main-ui view -->
   <div id="main-ui" ng-controller="MainUIController" ng-if="mode == 'main_ui'">
+ 
     <div class="pure-menu pure-menu-open pure-menu-horizontal">
         <ul>
             <li ng-class="{'pure-menu-selected': item == selectedItem}" ng-repeat="item in menuItems"><a href="#" ng-click="select(item)">{{item}}</a></li>
@@ -88,7 +89,7 @@
 
         
     </div> 
-
+    <a id="real-name" ng-if="mode == 'main_ui'">{{person.real_name}}</a>
   </div>
  
   <!-- End main-ui view -->

@@ -29,7 +29,12 @@ body {
     display: block!important;
 }
 
-
+#real-name  {
+    font-weight: lighter;
+    font-size: 10pt;
+    font-style: italic;
+    text-align: center;
+}
 
 #login-button {
    position: absolute;
@@ -92,6 +97,10 @@ body {
 
 label {
     font-weight: lighter;
+}
+
+#main-ui {
+    text-align: center;
 }
 #main-ui p  {
     font-family: "Roboto Condensed";
