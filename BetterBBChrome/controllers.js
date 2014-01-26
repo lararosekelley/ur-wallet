@@ -6,7 +6,7 @@ bbAppControllers.controller('MasterController',
     //pre_login   - asks user if they attend U of R
     //login       - login form 
     //wallet       - shows euros and declining
-    $scope.mode = "main_ui";
+    $scope.mode = "pre_login";
 
     $scope.proceed = function() {
         $scope.mode = "login";
@@ -41,9 +41,7 @@ bbAppControllers.controller('LoginController',
     }
     $scope.doLogin = function(form) {
         if (form.$valid) {
-            tryBBLogin()
-
-            //$scope.$parent.mode = "wallet";
+            tryBBLogin();
         }
     };
 
@@ -103,5 +101,8 @@ bbAppControllers.controller('WalletController',
 bbAppControllers.controller('SettingsController',
     ['$scope', function($scope) {
 
+    $scope.settings = [
+        {name: "Remember password", value: false}
+    ];
 
 }]);

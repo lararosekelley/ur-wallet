@@ -24,7 +24,7 @@
     <h2>Do you attend the University of Rochester?</h2>
     <p>The extension only works for students at the U of R right now.</p>
     <button class="button-success pure-button" style="margin-right:10px" ng-click="proceed()">Yes!</button>
-    <button class="button-error pure-button-disabled" ng-click="uninstall()">No, uninstall</button>
+    <button class="button-error pure-button" ng-click="uninstall()">No, uninstall</button>
   </div>
   <!-- End pre-login view -->
 
@@ -48,7 +48,7 @@
   <!--  End login view -->
 
   <!-- Begin main-ui view -->
-  <div id="main-ui" ng-controller="MainUIController" ng-show="mode == 'main_ui'">
+  <div id="main-ui" ng-controller="MainUIController" ng-if="mode == 'main_ui'">
     <div class="pure-menu pure-menu-open pure-menu-horizontal">
         <ul>
             <li ng-class="{'pure-menu-selected': item == selectedItem}" ng-repeat="item in menuItems"><a href="#" ng-click="select(item)">{{item}}</a></li>
@@ -77,15 +77,18 @@
             If you want to add these, put them in a child container.
             -->
          
-            <label for="remember">
-            Remember me  <input id="remember" type="checkbox"> 
+            <label ng-repeat="setting in settings">
+            {{setting.name}}  <input type="checkbox" ng-checked="setting.value" ng-click="setting.value = !setting.value"> 
             </label>
+
+
 
         </div>
      
 
         
-    </div>  
+    </div> 
+
   </div>
  
   <!-- End main-ui view -->
