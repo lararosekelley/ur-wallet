@@ -105,13 +105,15 @@ bbApp.factory('SequoiaService', function($http, $q, $parse, sequoiaUrls) {
             $http.get(sequoiaUrls.token).success(function(data) {
 
                 /* grab the auth token */
-                var beginIndex = data.indexOf('AUTHENTICATIONTOKEN" value="');
+                var query = 'AUTHENTICATIONTOKEN" value="';
+                var beginIndex = data.indexOf(query) + query.length;
                 data           = data.slice(beginIndex);
                 var endIndex   = data.indexOf('"');
                 var token      = data.substring(0, endIndex);
-
+            
                 /* post it to finish up the auth */
                 $http.post(sequoiaUrls.auth, {AUTHENTICATIONTOKEN: token}).success(function(data) {
+
                     deferred.resolve(true);
                 }).error(function() {
                     deferred.reject("couldn't post auth token");
@@ -124,7 +126,7 @@ bbApp.factory('SequoiaService', function($http, $q, $parse, sequoiaUrls) {
 
         fetchFunds: function() {
             var deferred = $q.defer();
-            $http.post(sequoiaUrls.balance).success(function(data) {
+            $http.post(sequoiaUrls.balance, {}).success(function(data) {
                 var json = angular.fromJson(data);
                 var uros = json.d._ItemList[0].BalanceInDollarsStr.replace(/\s+/g, '');
                 var dec  = json.d._ItemList[1].BalanceInDollarsStr.replace(/\s+/g, '');
