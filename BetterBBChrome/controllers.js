@@ -93,12 +93,25 @@ bbAppControllers.controller('MainUIController',
 
 /* Handles the wallet*/
 bbAppControllers.controller('WalletController', 
-    ['$scope', '$timeout', '$http', '$location', function($scope, $timeout, $http, $location) {
+    ['$scope', '$timeout', '$http', '$location', 'SequoiaService', function($scope, $timeout, $http, $location, SequoiaService) {
 
-   $scope.funds = {
-        uros: 999,
-        declining: 789
+   $scope.funds = null;
+
+   $scope.sequoiaError = {
+        msg: "",
+        visible: false
    }
+
+   SequoiaService.authenticate().then(function(d){
+        if (d) {
+            SequoiaService.fetchFunds().then(function(funds) {
+                $scope.funds = funds;
+            });
+        } else {
+            sequoiaError.msg = "Couldn't authenticate sequoia!";
+            sequoiaError.visible = true;
+        }
+   });
    
 }]);
 

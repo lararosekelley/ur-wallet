@@ -1,8 +1,9 @@
 //This is used to make ajax requests behave. You don't have to read it.
 var bbApp = angular.module('bbApp', ['bbAppControllers', 'ngAnimate'], function($httpProvider) {
     // Use x-www-form-urlencoded Content-Type
-  $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
- 
+    $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
+    $httpProvider.defaults.withCredentials = true;
+
   // Override $http service's default transformRequest
   $httpProvider.defaults.transformRequest = [function(data)
   {
@@ -94,6 +95,46 @@ bbApp.factory('bbLoginService', function($http, $q, bbUrls) {
         return deferred.promise;
     }
   };
+});
+
+bbApp.factory('SequoiaService', function($http, $q, $parse, sequoiaUrls) {
+    return {
+        authenticate: function() {
+            var deferred = $q.defer();
+            $http.get(sequoiaUrls.token).success(function(data) {
+               
+                /* grab the auth token */
+                var beginIndex = data.indexOf('AUTHENTICATIONTOKEN" value="');
+                data           = data.slice(beginIndex);
+                var endIndex   = data.indexOf('"');
+                var token      = data.substring(0, endIndex);
+
+                /* post it to finish up the auth */
+                $http.post(sequoiaUrls.auth, {AUTHENTICATIONTOKEN: token}).success(function() {
+                    deferred.resolve(true);
+                }).error(function() {
+                    deferred.reject("couldn't post auth token");
+                });
+            }).error(function() {
+                deferred.reject("couldn't contact sequoia");
+            })
+            return deferred.promise;
+        },
+
+        fetchFunds: function() {
+            var deferred = $q.defer();
+            $http.post(sequoiaUrls.balance).success(function(data) {
+                var json = angular.fromJson(data);
+                var uros = json.d._ItemList[0].BalanceInDollarsStr.replace(/\s+/g, '');
+                var dec  = json.d._ItemList[1].BalanceInDollarsStr.replace(/\s+/g, '');
+                deferred.resolve({uros: uros, declining: dec});
+            }).error(function(){
+                deferred.reject("couldn't fetch dining info")
+            });
+
+            return deferred.promise;
+        }
+    }
 });
 /* Something to hold and pass around the raw bb data */
 bbApp.factory('bbRawData', function($rootScope) {

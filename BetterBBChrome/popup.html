@@ -63,13 +63,17 @@
             If you want to add these, put them in a child container.
             -->
             <p>Declining</p>
-            <h1>${{funds.declining}}</h1>
+            <h1>{{funds.declining}}</h1>
+            <div loader class="funds-loader" ng-if="funds == null"></div>
         </div>
 
         <div class="pure-u-1-2 centered">
             <p>Uros/Flex</p>
-            <h1>${{funds.uros}}</h1>
+            <h1>{{funds.uros}}</h1>
+            <div loader class="funds-loader" ng-if="funds == null"></div>
         </div>
+
+         <div class="message" ng-show="sequoiaError.visible">{{sequoiaError.msg}}</div>
 
     </div>  
     <div id="settings" class="pure-g" ng-controller="SettingsController" ng-show="selectedItem == 'Settings'">

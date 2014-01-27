@@ -110,6 +110,14 @@ label {
 #main-ui h1 {
     font-family: "Roboto Condensed";
 }
+
+#main-ui .wInnerBall {
+    background: black;
+}
+
+.funds-loader{
+    margin-left: 58px;
+}
 #settings input{
     width: 13px;
     height: 13px;
