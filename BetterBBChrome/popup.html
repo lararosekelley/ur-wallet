@@ -73,7 +73,7 @@
             <div loader class="funds-loader" ng-if="funds == null"></div>
         </div>
 
-         <div class="message" ng-show="sequoiaError.visible">{{sequoiaError.msg}}</div>
+       
 
     </div>  
     <div id="settings" class="pure-g" ng-controller="SettingsController" ng-show="selectedItem == 'Settings'">
@@ -85,7 +85,7 @@
             -->
          
             <label ng-repeat="setting in settings">
-            {{setting.name}}  <input type="checkbox" ng-checked="setting.value" ng-click="setting.value = !setting.value"> 
+            {{setting.name}}  <input type="checkbox" ng-checked="setting.value" ng-click="updateSetting(setting)"> 
             </label>
 
 
@@ -97,7 +97,9 @@
     <div id="personal" class="pure-g" ng-controller="PersonalController" ng-show="selectedItem == 'Personal'">
         <div class="pure-u-1 centered">
 
-           {{person.real_name}}
+          <p>{{person.real_name}}</p>
+          <p>{{person.student_id}}</p>
+          <p>{{person.email}}</p>
        </div>
      
      </div>  

@@ -65,7 +65,8 @@ bbApp.constant('bbUrls', {
 bbApp.constant('sequoiaUrls', {
   token: "https://my.rochester.edu/webapps/bb-ecard-sso-bb_bb60/token.jsp",
   auth: "https://ecard.sequoiars.com/eCardServices/AuthenticationHandler.ashx",
-  balance: "https://ecard.sequoiars.com/eCardServices/eCardServices.svc/WebHttp/GetAccountHolderInformationForCurrentUser"
+  balance: "https://ecard.sequoiars.com/eCardServices/eCardServices.svc/WebHttp/GetAccountHolderInformationForCurrentUser",
+  user: "https://ecard.sequoiars.com/eCardServices/eCardServices.svc/WebHttp/GetStudentForCurrentUser"
 });
 
 
@@ -102,7 +103,7 @@ bbApp.factory('SequoiaService', function($http, $q, $parse, sequoiaUrls) {
         authenticate: function() {
             var deferred = $q.defer();
             $http.get(sequoiaUrls.token).success(function(data) {
-               
+
                 /* grab the auth token */
                 var beginIndex = data.indexOf('AUTHENTICATIONTOKEN" value="');
                 data           = data.slice(beginIndex);
@@ -110,7 +111,7 @@ bbApp.factory('SequoiaService', function($http, $q, $parse, sequoiaUrls) {
                 var token      = data.substring(0, endIndex);
 
                 /* post it to finish up the auth */
-                $http.post(sequoiaUrls.auth, {AUTHENTICATIONTOKEN: token}).success(function() {
+                $http.post(sequoiaUrls.auth, {AUTHENTICATIONTOKEN: token}).success(function(data) {
                     deferred.resolve(true);
                 }).error(function() {
                     deferred.reject("couldn't post auth token");
@@ -131,6 +132,20 @@ bbApp.factory('SequoiaService', function($http, $q, $parse, sequoiaUrls) {
             }).error(function(){
                 deferred.reject("couldn't fetch dining info")
             });
+
+            return deferred.promise;
+        },
+
+        fetchUserInfo: function() {
+            var deferred = $q.defer();
+            $http.post(sequoiaUrls.user).success(function(data) {
+                var json      = angular.fromJson(data);
+                var studentID = json.d.CampusID.slice(1, 9);
+                var email     = json.d.AppUser.Email;
+                deferred.resolve({student_id: studentID, email: email});
+            }).error(function() {
+                deferred.reject("couldn't fetch user info");
+            })
 
             return deferred.promise;
         }
