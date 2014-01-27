@@ -18,7 +18,9 @@
 </head>
 
 <body ng-controller="MasterController" ng-class="{rochester: mode == 'login'}">
+
   <!-- Begin pre-login view -->
+
   <div id="pre-login" ng-show="mode == 'pre_login'">
 
     <h2>Do you attend the University of Rochester?</h2>
@@ -73,6 +75,7 @@
     </div>  
     <div id="settings" class="pure-g" ng-controller="SettingsController" ng-show="selectedItem == 'Settings'">
         <div class="pure-u-1 centered">
+
             <!--
             By default, grid units don't have any margin/padding.
             If you want to add these, put them in a child container.
@@ -85,14 +88,20 @@
 
 
         </div>
-     
+    </div>
 
-        
-    </div> 
-    <a id="real-name" ng-if="mode == 'main_ui'">{{person.real_name}}</a>
+
+    <div id="personal" class="pure-g" ng-controller="PersonalController" ng-show="selectedItem == 'Personal'">
+        <div class="pure-u-1 centered">
+
+           {{person.real_name}}
+       </div>
+     
+     </div>  
+    
   </div>
  
   <!-- End main-ui view -->
-  
+ 
 </body>
 </html>

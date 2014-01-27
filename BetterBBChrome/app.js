@@ -1,3 +1,4 @@
+//This is used to make ajax requests behave. You don't have to read it.
 var bbApp = angular.module('bbApp', ['bbAppControllers', 'ngAnimate'], function($httpProvider) {
     // Use x-www-form-urlencoded Content-Type
   $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
@@ -55,8 +56,20 @@ var bbApp = angular.module('bbApp', ['bbAppControllers', 'ngAnimate'], function(
 });
 
 
-bbApp.factory('bbLoginService', function($http, $q) {
-  console.log("wtf?")
+/* CONSTANTS */
+bbApp.constant('bbUrls', {
+  login: "https://my.rochester.edu/webapps/login/index"
+});
+
+bbApp.constant('sequoiaUrls', {
+  token: "https://my.rochester.edu/webapps/bb-ecard-sso-bb_bb60/token.jsp",
+  auth: "https://ecard.sequoiars.com/eCardServices/AuthenticationHandler.ashx",
+  balance: "https://ecard.sequoiars.com/eCardServices/eCardServices.svc/WebHttp/GetAccountHolderInformationForCurrentUser"
+});
+
+
+/* SERVICE TO LOG INTO BLACKBOARD */
+bbApp.factory('bbLoginService', function($http, $q, bbUrls) {
   return {
     async: function(user) {
       var deferred = $q.defer();
@@ -69,7 +82,7 @@ bbApp.factory('bbLoginService', function($http, $q) {
       }
       $http({
             withCredentials:true,
-            url: "https://my.rochester.edu/webapps/login/index",
+            url: bbUrls.login,
             method: "POST",
             data: postData,
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
@@ -78,12 +91,28 @@ bbApp.factory('bbLoginService', function($http, $q) {
         }).error(function(resp) {
             deferred.reject("bb connection fail")
         });
-
-
         return deferred.promise;
-
     }
   };
+});
+
+
+/* SERVICE TO PARSE BLACKBOARD */
+bbApp.factory('bbParseService', function() {
+  var bbParseClass = function(rawData) {
+    this.data = rawData;
+
+
+    //Define functions that manipulate the raw data
+    this.parseName = function() {
+      var beginIndex = this.data.indexOf('"User Avatar Image" alt="">') + 27;
+      this.data = this.data.slice(beginIndex);
+      var endIndex = this.data.indexOf("<");
+      var name = this.data.substring(0, endIndex);
+      return name;
+    }
+  }
+  return bbParseClass;
 });
 
 

@@ -28,12 +28,13 @@ body {
 #login-message.ng-hide-add, #login-message.ng-hide-remove {
     display: block!important;
 }
-
 #real-name  {
     font-weight: lighter;
     font-size: 10pt;
     font-style: italic;
     text-align: center;
+    position: relative;
+    top: -6px;
 }
 
 #login-button {

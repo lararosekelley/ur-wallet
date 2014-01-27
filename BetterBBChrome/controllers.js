@@ -1,8 +1,8 @@
 
-/* Holds variables common to all controllers */
+/* Holds variables common to all controllers. Trying to make this do as little as possible. */
 bbAppControllers.controller('MasterController',
      ['$scope',  function($scope) {
-    //View modes:    
+    //Very easy to debug views, just set the mode to one of:    
     //pre_login   - asks user if they attend U of R
     //login       - login form 
     //main_ui     - the ui containing wallet/etc.
@@ -17,22 +17,12 @@ bbAppControllers.controller('MasterController',
         chrome.management.uninstallSelf();
     }
 
-    $scope.person = {
-        real_name: ""
-    }
-
+    $scope.bb_raw_data = "";
 }]);
 
 /* Handles the logging in logic */
 bbAppControllers.controller('LoginController', 
     ['$scope', '$timeout', '$http', '$location', 'bbLoginService', function($scope, $timeout, $http, $location, bbLoginService) {
-
-    $scope.sequoia = {
-        token_url   : "https://my.rochester.edu/webapps/bb-ecard-sso-bb_bb60/token.jsp",
-        auth_url    : "https://ecard.sequoiars.com/eCardServices/AuthenticationHandler.ashx",
-        balance_url : "https://ecard.sequoiars.com/eCardServices/eCardServices.svc/WebHttp/GetAccountHolderInformationForCurrentUser",
-        token: ""
-    }
 
     $scope.user = {
         netid: "cwaldren",
@@ -40,10 +30,12 @@ bbAppControllers.controller('LoginController',
     };
 
     $scope.loginRequestPending = false;
+    
     $scope.loginError = {
         msg: "",
         visibile: false
     }
+    
     $scope.doLogin = function(form) {
         if (form.$valid) {
             tryBBLogin();
@@ -56,7 +48,7 @@ bbAppControllers.controller('LoginController',
         bbLoginService.async($scope.user).then(function(d) {
            if(d.indexOf('topframe.logout.label') !== -1) {
                 $scope.$parent.mode = "main_ui"
-                $scope.$parent.person.real_name = parseRealName(d);
+                $scope.$parent.bb_raw_data = d;
             } else {
                 setError("wrong netid/pass");
             }
@@ -80,23 +72,13 @@ bbAppControllers.controller('LoginController',
     }
 
 
-    var parseRealName = function(data) {
-        var beginIndex = data.indexOf('"User Avatar Image" alt="">') + 27;
-        data = data.slice(beginIndex);
-        var endIndex = data.indexOf("<");
-        var name = data.substring(0, endIndex);
-    
-        return name;
-    }
-
-
    
 }]);
 
 bbAppControllers.controller('MainUIController', 
      ['$scope', '$timeout', '$http', '$location', function($scope, $timeout, $http, $location) {
 
-        $scope.menuItems = ['Wallet', 'Settings'];
+        $scope.menuItems = ['Wallet', 'Settings', 'Personal'];
         $scope.selectedItem = 'Wallet';
 
         $scope.select = function(item) {
@@ -120,5 +102,24 @@ bbAppControllers.controller('SettingsController',
     $scope.settings = [
         {name: "Remember password", value: false}
     ];
+
+}]);
+
+bbAppControllers.controller('PersonalController',
+    ['$scope', 'bbParseService',  function($scope, bbParseService) {
+
+    $scope.person = {
+        real_name: "",
+        student_id: "",
+        po_box: ""
+    }
+
+    var parser = new bbParseService($scope.$parent.bb_raw_data)
+    $scope.person.real_name = parser.parseName();
+
+
+
+
+    
 
 }]);
