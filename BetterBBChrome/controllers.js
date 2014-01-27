@@ -159,6 +159,9 @@ bbAppControllers.controller('SettingsController',
             } else {
                 storage.removeItem("netid");
                 storage.removeItem("password");
+                storage.removeItem("email");
+                storage.removeItem("studentID");
+                storage.removeItem("name");
             }      
         }
     }
