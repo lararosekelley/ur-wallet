@@ -17,11 +17,11 @@
 
 </head>
 
-<body ng-controller="MasterController" ng-class="{rochester: mode == 'login'}">
+<body ng-controller="MasterController" ng-class="{rochester: getMode() == 'login'}">
 
   <!-- Begin pre-login view -->
 
-  <div id="pre-login" ng-show="mode == 'pre_login'">
+  <div id="pre-login" ng-show="getMode() == 'pre_login'">
 
     <h2>Do you attend the University of Rochester?</h2>
     <p>The extension only works for students at the U of R right now.</p>
@@ -32,12 +32,11 @@
 
   <!--  Begin login view -->
   <div id="login-form" ng-controller="LoginController" >
-    <form class="pure-form pure-form-stacked" ng-show="mode =='login'" name="loginForm">
+    <form class="pure-form pure-form-stacked" ng-show="getMode() == 'login'" name="loginForm">
       <fieldset>
         <legend class="centered">Better Blackboard</legend>
         <label for="netid">NetID</label>
         <input id="netid" type="text" ng-model="user.netid" required>
-
         <label for="password">Password</label>
         <input id="password" type="password" ng-model="user.password" required>
         <button id="login-button" type="submit" class="pure-button pure-button-primary animated" ng-click="doLogin(loginForm)" ng-show="!loginRequestPending">Sign in</button>
@@ -50,7 +49,7 @@
   <!--  End login view -->
 
   <!-- Begin main-ui view -->
-  <div id="main-ui" ng-controller="MainUIController" ng-if="mode == 'main_ui'">
+  <div id="main-ui" ng-controller="MainUIController" ng-if="getMode() == 'main_ui'">
  
     <div class="pure-menu pure-menu-open pure-menu-horizontal">
         <ul>

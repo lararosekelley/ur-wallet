@@ -87,7 +87,7 @@ bbApp.factory('bbLoginService', function($http, $q, bbUrls) {
             data: postData,
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         }).success(function(resp) {
-           deferred.resolve(resp);
+            deferred.resolve({success:resp.indexOf('topframe.logout.label') !== -1, data: resp});
         }).error(function(resp) {
             deferred.reject("bb connection fail")
         });
@@ -95,12 +95,37 @@ bbApp.factory('bbLoginService', function($http, $q, bbUrls) {
     }
   };
 });
+/* Something to hold and pass around the raw bb data */
+bbApp.factory('bbRawData', function($rootScope) {
+    var shared = {};
+    shared.set = function(data) {
+        shared.data = data;
+    }
 
+    shared.get = function() {
+        return shared.data;
+    }
+
+    return shared;
+})
+
+bbApp.factory('ModeService', function($rootScope) {
+    var mode = {};
+    mode.set = function(what) {
+        mode.which = what;
+    }
+    mode.get = function() {
+        return mode.which;
+    }
+
+    return mode;
+});
 
 /* SERVICE TO PARSE BLACKBOARD */
 bbApp.factory('bbParseService', function() {
-  var bbParseClass = function(rawData) {
-    this.data = rawData;
+   
+  var bbParseClass = function(rawBBData) {
+    this.data = rawBBData;
 
 
     //Define functions that manipulate the raw data

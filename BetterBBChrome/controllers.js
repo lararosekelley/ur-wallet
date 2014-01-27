@@ -1,40 +1,45 @@
 
 /* Holds variables common to all controllers. Trying to make this do as little as possible. */
 bbAppControllers.controller('MasterController',
-     ['$scope',  function($scope) {
+     ['$scope', 'ModeService',  function($scope, ModeService) {
     //Very easy to debug views, just set the mode to one of:    
     //pre_login   - asks user if they attend U of R
     //login       - login form 
     //main_ui     - the ui containing wallet/etc.
 
-    $scope.mode = "login";
+    ModeService.set("login");
 
     $scope.proceed = function() {
-        $scope.mode = "login";
+       ModeService.set("login")
     }
 
     $scope.uninstall = function() {
         chrome.management.uninstallSelf();
     }
 
-    $scope.bb_raw_data = "";
+    $scope.getMode = function() {
+        return ModeService.get();
+    }
+ 
 }]);
 
-/* Handles the logging in logic */
+/* Handles the logging in to BB logic */
 bbAppControllers.controller('LoginController', 
-    ['$scope', '$timeout', '$http', '$location', 'bbLoginService', function($scope, $timeout, $http, $location, bbLoginService) {
+    ['$scope', '$timeout', '$http', 'bbLoginService', 'bbRawData', 'ModeService', 
+    function($scope, $timeout, $http, bbLoginService, bbRawData, ModeService) {
 
     $scope.user = {
         netid: "cwaldren",
         password: "",
     };
 
-    $scope.loginRequestPending = false;
     
     $scope.loginError = {
         msg: "",
         visibile: false
     }
+
+    $scope.loginRequestPending = false;
     
     $scope.doLogin = function(form) {
         if (form.$valid) {
@@ -46,9 +51,9 @@ bbAppControllers.controller('LoginController',
     var tryBBLogin = function() {
         $scope.loginRequestPending = true;
         bbLoginService.async($scope.user).then(function(d) {
-           if(d.indexOf('topframe.logout.label') !== -1) {
-                $scope.$parent.mode = "main_ui"
-                $scope.$parent.bb_raw_data = d;
+            if(d.success) {
+                bbRawData.set(d.data);
+                ModeService.set("main_ui");
             } else {
                 setError("wrong netid/pass");
             }
@@ -85,6 +90,7 @@ bbAppControllers.controller('MainUIController',
             $scope.selectedItem = item;
         }
 }])
+
 /* Handles the wallet*/
 bbAppControllers.controller('WalletController', 
     ['$scope', '$timeout', '$http', '$location', function($scope, $timeout, $http, $location) {
@@ -96,6 +102,7 @@ bbAppControllers.controller('WalletController',
    
 }]);
 
+/* Handles the settings page */
 bbAppControllers.controller('SettingsController',
     ['$scope', function($scope) {
 
@@ -105,8 +112,9 @@ bbAppControllers.controller('SettingsController',
 
 }]);
 
+/* Handles the personal data page */
 bbAppControllers.controller('PersonalController',
-    ['$scope', 'bbParseService',  function($scope, bbParseService) {
+    ['$scope', 'bbParseService', 'bbRawData', function($scope, bbParseService, bbRawData) {
 
     $scope.person = {
         real_name: "",
@@ -114,12 +122,8 @@ bbAppControllers.controller('PersonalController',
         po_box: ""
     }
 
-    var parser = new bbParseService($scope.$parent.bb_raw_data)
-    $scope.person.real_name = parser.parseName();
 
-
-
-
-    
+    var parser = new bbParseService(bbRawData.get());
+    $scope.person.real_name = parser.parseName();    
 
 }]);
