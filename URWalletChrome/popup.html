@@ -33,6 +33,7 @@
   <!--  Begin login view -->
   <div id="login-form" ng-controller="LoginController" ng-show="getMode() == 'login' ">
     <h2 id="auto-login-msg" ng-if="remember"><i>Logging you in {{readUserInfo().firstName + "!"}}</i></h2>
+    <div class="message animated" id="login-message" ng-show="loginError.visible">Nevermind, you don't have a connection to blackboard. Try again later.</div>
     <!-- IDEA: "heads up, you're low on declining!" -->
     <form class="pure-form pure-form-stacked" ng-show="!remember" name="loginForm">
 
