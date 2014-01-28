@@ -1,8 +1,8 @@
-README: BetterBB
+AngularJS URWallet
 
-This is a Chrome Extension desgined to provide you with quick and easy access to common information on BlackBoard.
+This is the URWallet extension using AngularJS. I don't really know how to use Angular that well so some critique would be appreciated.
 
 How to Install and Run
 	github.com/tylucaskelley/BetterBB
 	Download ZIP
-	Chrome --> Settings --> Extensions --> Developer Mode --> Load Unpacked Extension --> Find the BetterBB folder
+	Chrome --> Settings --> Extensions --> Developer Mode --> Load Unpacked Extension --> Find the URWalletChrome folder
