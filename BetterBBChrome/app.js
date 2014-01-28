@@ -1,4 +1,4 @@
-//This is used to make ajax requests behave. You don't have to read it.
+//Make ajax requests behave
 var bbApp = angular.module('bbApp', ['bbAppControllers', 'ngAnimate'], function($httpProvider) {
     // Use x-www-form-urlencoded Content-Type
     $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
@@ -57,7 +57,7 @@ var bbApp = angular.module('bbApp', ['bbAppControllers', 'ngAnimate'], function(
 });
 
 
-/* CONSTANTS */
+/* Constants */
 bbApp.constant('bbUrls', {
   login: "https://my.rochester.edu/webapps/login/index"
 });
@@ -70,7 +70,7 @@ bbApp.constant('sequoiaUrls', {
 });
 
 
-/* SERVICE TO LOG INTO BLACKBOARD */
+/* Service to log into blackboard */
 bbApp.factory('bbLoginService', function($http, $q, bbUrls) {
   return {
     async: function(user) {
@@ -98,6 +98,7 @@ bbApp.factory('bbLoginService', function($http, $q, bbUrls) {
   };
 });
 
+/* Service to authenticate and retrieve data from Sequoia */
 bbApp.factory('SequoiaService', function($http, $q, $parse, sequoiaUrls) {
     return {
         authenticate: function() {
@@ -113,8 +114,7 @@ bbApp.factory('SequoiaService', function($http, $q, $parse, sequoiaUrls) {
             
                 /* post it to finish up the auth */
                 $http.post(sequoiaUrls.auth, {AUTHENTICATIONTOKEN: token}).success(function(data) {
-
-                    deferred.resolve(true);
+                    deferred.resolve("auth success!");
                 }).error(function() {
                     deferred.reject("couldn't post auth token");
                 });
@@ -144,7 +144,12 @@ bbApp.factory('SequoiaService', function($http, $q, $parse, sequoiaUrls) {
                 var json      = angular.fromJson(data);
                 var studentID = json.d.CampusID.slice(1, 9);
                 var email     = json.d.AppUser.Email;
-                deferred.resolve({student_id: studentID, email: email});
+                var firstName = json.d.AppUser.FirstName.toLowerCase();
+                firstName = firstName.charAt(0).toUpperCase() + firstName.substring(1);
+                var lastName  = json.d.AppUser.LastName.toLowerCase();
+                lastName = lastName.charAt(0).toUpperCase() + lastName.substring(1);
+                var fullName = firstName + ' ' + lastName;
+                deferred.resolve({studentID: studentID, email: email, fullName: fullName, firstName: firstName, lastName: lastName});
             }).error(function() {
                 deferred.reject("couldn't fetch user info");
             })
@@ -153,20 +158,20 @@ bbApp.factory('SequoiaService', function($http, $q, $parse, sequoiaUrls) {
         }
     }
 });
-/* Something to hold and pass around the raw bb data */
+
+/* Something to hold and pass around the raw bb data, if we want to scrape it */
 bbApp.factory('bbRawData', function($rootScope) {
     var shared = {};
     shared.set = function(data) {
         shared.data = data;
     }
-
     shared.get = function() {
         return shared.data;
     }
-
     return shared;
-})
+});
 
+/* Service to switch 'modes' e.g. login, pre_login etc. */
 bbApp.factory('ModeService', function($rootScope) {
     var mode = {};
     mode.set = function(what) {
@@ -175,30 +180,31 @@ bbApp.factory('ModeService', function($rootScope) {
     mode.get = function() {
         return mode.which;
     }
-
     return mode;
 });
 
-/* SERVICE TO PARSE BLACKBOARD */
+/* Service to parse the raw bb data */
 bbApp.factory('bbParseService', function() {
    
   var bbParseClass = function(rawBBData) {
     this.data = rawBBData;
 
 
-    //Define functions that manipulate the raw data
+    //Define functions that manipulate the raw data, for instance parsing the name (could get from sequoia)
     this.parseName = function() {
-      var beginIndex = this.data.indexOf('"User Avatar Image" alt="">') + 27;
-      this.data = this.data.slice(beginIndex);
-      var endIndex = this.data.indexOf("<");
-      var name = this.data.substring(0, endIndex);
+      var beginIndex =  this.data.indexOf('"User Avatar Image" alt="">') + 27;
+      this.data =       this.data.slice(beginIndex);
+      var endIndex =    this.data.indexOf("<");
+      var name =        this.data.substring(0, endIndex);
       return name;
     }
+
+
   }
   return bbParseClass;
 });
 
-
+/* The loader animation */
 bbApp.directive('loader', function () {
     return {
       restrict: 'AC',

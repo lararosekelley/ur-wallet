@@ -8,6 +8,9 @@ body {
       background-image: url("bg.jpg");
 }
 
+.auto-login {
+    min-height: 75px;
+}
 .centered {
     text-align: center;
 }
@@ -28,6 +31,13 @@ body {
 #login-message.ng-hide-add, #login-message.ng-hide-remove {
     display: block!important;
 }
+
+#auto-login-msg {
+    font-weight: lighter;
+    position: relative;
+    left: -30px;
+}
+
 #real-name  {
     font-weight: lighter;
     font-size: 10pt;
@@ -117,6 +127,12 @@ label {
 
 .funds-loader{
     margin-left: 58px;
+}
+
+
+.personal-loader {
+    margin-left: 136px;
+    margin-top: 20px;
 }
 #settings input{
     width: 13px;

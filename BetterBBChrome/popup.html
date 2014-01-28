@@ -17,7 +17,7 @@
 
 </head>
 
-<body ng-controller="MasterController" ng-class="{rochester: getMode() == 'login'}">
+<body ng-controller="MasterController" ng-class="{rochester: getMode() == 'login', 'auto-login': remember && getMode() == 'login'}">
 
   <!-- Begin pre-login view -->
 
@@ -31,26 +31,29 @@
   <!-- End pre-login view -->
 
   <!--  Begin login view -->
-  <div id="login-form" ng-controller="LoginController" >
-    <form class="pure-form pure-form-stacked" ng-show="getMode() == 'login'" name="loginForm">
+  <div id="login-form" ng-controller="LoginController" ng-show="getMode() == 'login' ">
+    <h2 id="auto-login-msg" ng-if="remember"><i>Logging you in, {{readUserInfo().firstName}}!</i></h2>
+    <!-- IDEA: "heads up, you're low on declining!" -->
+    <form class="pure-form pure-form-stacked" ng-show="!remember" name="loginForm">
+
       <fieldset>
-        <legend class="centered">Better Blackboard</legend>
+        <legend class="centered">YoUR Wallet</legend>
         <label for="netid">NetID</label>
         <input id="netid" type="text" ng-model="user.netid" required>
         <label for="password">Password</label>
         <input id="password" type="password" ng-model="user.password" required>
         <button id="login-button" type="submit" class="pure-button pure-button-primary animated" ng-click="doLogin(loginForm)" ng-show="!loginRequestPending">Sign in</button>
         <div class="message animated" id="login-message" ng-show="loginError.visible">{{loginError.msg}} </div>
-        <div loader id="login-loader" class="animated" ng-show="loginRequestPending"></div>
+       
       </fieldset>
      
     </form>
+     <div loader id="login-loader" class="animated" ng-show="loginRequestPending"></div>
   </div>
   <!--  End login view -->
 
   <!-- Begin main-ui view -->
   <div id="main-ui" ng-controller="MainUIController" ng-if="getMode() == 'main_ui'">
- 
     <div class="pure-menu pure-menu-open pure-menu-horizontal">
         <ul>
             <li ng-class="{'pure-menu-selected': item == selectedItem}" ng-repeat="item in menuItems"><a href="#" ng-click="select(item)">{{item}}</a></li>
@@ -62,15 +65,17 @@
             By default, grid units don't have any margin/padding.
             If you want to add these, put them in a child container.
             -->
+
             <p>Declining</p>
             <h1>{{funds.declining}}</h1>
-            <div loader class="funds-loader" ng-if="funds == null"></div>
-        </div>
-
+            <p ng-if="!updating"><i>That's {{Math.floor(funds.raw_declining/ 6.5)}} meals.</i></p>
+            <div loader class="funds-loader" ng-if="updating"></div>
+            </div>
         <div class="pure-u-1-2 centered">
             <p>Uros/Flex</p>
             <h1>{{funds.uros}}</h1>
-            <div loader class="funds-loader" ng-if="funds == null"></div>
+            <p ng-if="!updating"><i>That's {{Math.floor(funds.raw_uros/2.50)}} laundries.</i></p>
+            <div loader class="funds-loader" ng-if="updating"></div>
         </div>
 
        
@@ -84,22 +89,25 @@
             If you want to add these, put them in a child container.
             -->
          
-            <label ng-repeat="setting in settings">
+         <!--    <label ng-repeat="setting in settings">
             {{setting.name}}  <input type="checkbox" ng-checked="setting.value" ng-click="updateSetting(setting)"> 
-            </label>
+            </label> -->
+
+            <button class="button-warning pure-button" style="margin-top: 5px" ng-click="logoutAndDestroy()">Logout & Delete All Data</button>
 
 
 
         </div>
     </div>
 
-
     <div id="personal" class="pure-g" ng-controller="PersonalController" ng-show="selectedItem == 'Personal'">
         <div class="pure-u-1 centered">
 
-          <p>{{person.real_name}}</p>
-          <p>{{person.student_id}}</p>
+          <p>{{person.fullName}}</p>
+          <p>{{person.studentID}}</p>
           <p>{{person.email}}</p>
+
+          <div loader class="personal-loader" ng-if="!person"></div>
        </div>
      
      </div>  
