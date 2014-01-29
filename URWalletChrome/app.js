@@ -190,13 +190,19 @@ bbApp.factory('bbParseService', function() {
     this.data = rawBBData;
 
 
-    //Define functions that manipulate the raw data, for instance parsing the name (could get from sequoia)
+    //Define functions that manipulate the raw data
     this.parseName = function() {
-      var beginIndex =  this.data.indexOf('"User Avatar Image" alt="">') + 27;
-      this.data =       this.data.slice(beginIndex);
-      var endIndex =    this.data.indexOf("<");
-      var name =        this.data.substring(0, endIndex);
+      var dom = this.data;
+      var beginIndex = dom.indexOf('"User Avatar Image" alt="">') + 27;
+      dom            = dom.slice(beginIndex);
+      var endIndex   = dom.indexOf("<");
+      var name       = dom.substring(0, endIndex);
       return name;
+    }
+
+    this.parseClasses = function() {
+      var dom = this.data;
+
     }
 
 

@@ -49,7 +49,7 @@ bbAppControllers.controller('MasterController',
     }
 
     $scope.writeUserCredentials = function() {
-        log("Writing user credentials.");
+        log("Writing user credentials.:"+ window.btoa($scope.user.netid));
         storage["netid"]    = window.btoa($scope.user.netid);
         storage["password"] = window.btoa($scope.user.password);
     };
@@ -126,7 +126,7 @@ bbAppControllers.controller('LoginController',
                 log("BB login success.");  
                 bbRawData.set(d.data);
                 ModeService.set("main_ui");
-                $scope.writeUserCredentials()
+                if (!$scope.remember){$scope.writeUserCredentials();}
             } else {
                 err("BB login failed. (wrong netid/pass?)");
                 setError("wrong netid/pass");
@@ -164,7 +164,7 @@ bbAppControllers.controller('MainUIController',
      ['$scope', '$timeout', '$http', '$location', 'SequoiaService', function($scope, $timeout, $http, $location, SequoiaService) {
         log("Control passed to MainUIController");
 
-        $scope.menuItems = ['Wallet', 'Settings', 'Personal'];
+        $scope.menuItems = ['Wallet', 'Personal', 'Settings'];
         $scope.selectedItem = 'Wallet';
 
         $scope.select = function(item) {
