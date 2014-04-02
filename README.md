@@ -1,7 +1,17 @@
-README: UR Wallet
-Authors: Ty-Lucas Kelley, Casey Waldren, Xinran Li
-Version: 1.0
-Last Updated: 1/26/2014
+#UR Wallet
+_2014 Ty-Lucas Kelley and Casey Waldren_
+
+_Get it on the [Chrome Web Store](https://chrome.google.com/webstore/detail/ur-wallet/mimeggmmcphbjpangefbghnfhbaaacnm)!_
+
+_Version: 2.0, Last Updated: 4/2/2014_
+
+####Description
+
+This extension is desgined to provide University of Rochester students with easy access to their Declining and URos balances. Get it from the Chrome Webstore today!
+
+####Screenshot
+
+![One](img/Screenshot.png "One")
 
 **LICENSE**
 
@@ -17,7 +27,3 @@ Last Updated: 1/26/2014
 
 	You should have received a copy of the GNU General Public License
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
-**END LICENSE**
-
-This extension is desgined to provide University of Rochester students with easy access to their Declining and URos balances. Get it from the Chrome Webstore today!  
