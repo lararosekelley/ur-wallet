@@ -5,14 +5,12 @@
   "version": "1.0",
 
   "permissions": [
-    "tabs",
     "http://*/*", 
     "https://*/*",
     "*://my.rochester.edu/*",
     "*://ecard.sequoiars.com/*",
     "storage",
-    "management",
-    "tabs"
+    "management"
   ],
 
   "browser_action": {
