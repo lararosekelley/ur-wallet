@@ -3,15 +3,21 @@ _2014 Ty-Lucas Kelley and Casey Waldren_
 
 _Get it on the [Chrome Web Store](https://chrome.google.com/webstore/detail/ur-wallet/mimeggmmcphbjpangefbghnfhbaaacnm)!_
 
-_Version: 2.0, Last Updated: 4/2/2014_
+_Version: 2.1, Last Updated: 4/4/2014_
 
 ####Description
 
 This extension is desgined to provide University of Rochester students with easy access to their Declining and URos balances. Get it from the Chrome Webstore today!
 
-####Screenshot
+####Screenshots
 
-![One](img/Screenshot.png "One")
+![One](img/one.png "One")
+
+
+![Two](img/two.png "Two")
+
+
+![Three](img/three.png "Three")
 
 **LICENSE**
 

@@ -1,50 +1,134 @@
-body {
-	margin: 0px;
+/*
+ * General Styles
+ */
+
+h1 {
+	font-family: 'Lato', Helvetica, sans-serif;
+	font-weight: 300;
+	font-size: 1.25em;
+	font-style: italic;
+	text-align: center;
+	color: #666;
 }
 
-#header {
-	margin: 0px;
-	font-family: 'Roboto', sans-serif;
+p {
+	color: lightgray;
+	font-family: 'Lato', Helvetica, sans-serif;
 	font-weight: 300;
-	font-size: 16pt;
-	font-style: italic;
-	color: white;
-	background-color: #152140;
+	font-size: 1.25em;
+	text-align: center;
 }
+
+/*
+ * Page Styles
+ */
 
 #login-page {
-	margin: 0px;
-	background-color: #F1EDD2;
-	width: 300px;
-	height: 200px;
+	width: 200px;
+	height: 150px;
+}
+
+#login {
+	color: green;
+}
+
+#login:hover {
+	text-shadow: 0 0 4px lightgreen;
+}
+
+#uninstall {
+	color: red;
+}
+
+#uninstall:hover {
+	text-shadow: 0 0 4px tomato;
+}
+
+#credits {
+	margin: 5px auto 12px auto;
+	display: block;
 	text-align: center;
-	display: none;
-} 
+	font-family: 'Lato', Helvetica, sans-serif;
+	font-weight: 300;
+	font-size: 1.25em;
+	text-decoration: none;
+	color: lightgray;
+}
+
+#credits:hover {
+	color: blue;
+	text-shadow: 0 0 4px lightblue;
+}
 
 #load-page {
-	margin: 0px;
 	display: none;
+	width: 34px;
+	height: 34px;
+}
+
+img {
+	position: relative;
+	top: 3px;
 }
 
 #main-page {
-	margin: 0px;
-	background-color: #F1EDD2;
-	width: 300px;
-	height: 300px;
-	text-align: center;
 	display: none;
+	width: 200px;
+	height: 150px;
 }
 
-#login-form {
-	padding-left: 20px;
-	padding-right: 20px;
+#deposit, #logout {
+	margin: 0 10px 5px 20px;
 }
+
+#deposit:hover {
+	color: green;
+	text-shadow: 0 0 4px lightgreen;
+}
+
+#logout:hover {
+	color: red;
+	text-shadow: 0 0 4px tomato;
+}
+
+/*
+ * Input Styles
+ */
 
 input {
-	display: inline-block;
-	vertical-align: baseline;
-	width: 150px;
+	font-family: 'Lato', Helvetica, sans-serif;
+	text-align: center;
+	font-size: 1.25em;
+	font-weight: 300;
+	background: transparent;
+	border: none;
 }
+
+.text {
+	font-family: 'Lato', Helvetica, sans-serif;
+	color: gray;
+	font-weight: 300;
+	width: 85%;
+	display: block;
+	margin: 0 auto;
+}
+
+.button {
+	margin: 10px 20px 5px 33px;
+}
+
+*:focus {
+	outline: none;
+}
+
+::webkit-input-placeholder {
+	color: gray;
+	font-weight: 300;
+}
+
+/*
+ * Funds Styles
+ */
 
 .high {
 	color: green;
@@ -56,4 +140,53 @@ input {
 
 .low {
 	color: red;
+}
+
+/* 
+ * Spinner Styles
+ */
+
+#bowlG{
+position:relative;
+width:28px;
+height:28px;
+}
+
+#bowl_ringG{
+position:absolute;
+width:28px;
+height:28px;
+border:2px solid #ADADAD;
+-webkit-border-radius:28px;
+}
+
+.ball_holderG{
+position:absolute;
+width:7px;
+height:28px;
+left:10px;
+top:0px;
+-webkit-animation-name:ball_moveG;
+-webkit-animation-duration:1.7s;
+-webkit-animation-iteration-count:infinite;
+-webkit-animation-timing-function:linear;
+}
+
+.ballG{
+position:absolute;
+left:0px;
+top:-7px;
+width:11px;
+height:11px;
+background:#ADADAD;
+-webkit-border-radius:9px;
+}
+
+@-webkit-keyframes ball_moveG{
+0%{
+-webkit-transform:rotate(0deg)}
+
+100%{
+-webkit-transform:rotate(360deg)}
+
 }

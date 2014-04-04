@@ -31,9 +31,16 @@ $(document).ready(function() {
 			console.log("Moving to BB login...");
 			bbLogin($("#netid").val(), $("#password").val());
 		} else {
-			console.log("Login Failed (No username/password");
-			$("input").css({"border":"1px solid red"});
-			$("#status").text("Oops! Enter your NetID and Password.");
+			console.log("Login Failed (No username/password)");
+			//CHANGE COLOR OF TITLE
+			$("#title").multiline("\"ur\" wallet\noops!");
+			$("#title").css("color", "red");
+			$("#title").css("text-shadow", "0 0 4px tomato");
+			setTimeout(function (){
+				$("#title").multiline("\"ur\" wallet\nuniversity of rochester");
+				$("#title").css("color", "#666");
+				$("#title").css("text-shadow", "none");
+        	}, 1500);
 		}
 	});
 	//Logout Button
@@ -92,10 +99,18 @@ function bbLogin(username, password) {
 			//Login failed
 			if ($("#loginErrorMessage", $data).exists()) {
 				console.log("Login to BB failed!");
-				$("input").css({"border":"1px solid red"});
-				$("#status").text("Oops! Wrong NetID and/or Password.");
 				$("#load-page").hide();
 				$("#login-page").show();
+
+				//CHANGE COLOR OF TITLE
+				$("#title").multiline("\"ur\" wallet\noops!");
+				$("#title").css("color", "red");
+				$("#title").css("text-shadow", "0 0 4px tomato");
+				setTimeout(function (){
+					$("#title").multiline("\"ur\" wallet\nuniversity of rochester");
+					$("#title").css("color", "#666");
+					$("#title").css("text-shadow", "none");
+         		}, 1500);
 			} else {
 				//Login Success!
 				console.log("Logged into BB! Moving to Sequoia Login...");
@@ -143,7 +158,7 @@ function sequoiaLogin() {
                             var declining = $data.d._ItemList[1].BalanceInDollarsStr;
                             var rawDeclining = $data.d._ItemList[1].BalanceInDollars;
 
-                            $("#declining").text("Declining: " + declining);
+                            $("#declining").text("declining: " + declining);
                             	if (rawDeclining < 50) {
                                 	$("#declining").addClass("low");
                                 } else if (rawDeclining > 50 && rawDeclining < 100 ) {
@@ -151,7 +166,7 @@ function sequoiaLogin() {
                                 } else if (rawDeclining > 100 ) {
                                     $("#declining").addClass("high");
                                 }
-                            $("#uros").text("URos: " + uros);
+                            $("#uros").text("uros: " + uros);
                            		if (rawUros < 10) {
                                 	$("#uros").addClass("low");
                                 } else if (rawUros > 10 && rawDeclining < 25 ) {
@@ -165,8 +180,8 @@ function sequoiaLogin() {
     						var firstName = name.split(", ")[1];
     						var lastName = name.split(", ")[0];
 
-    						constants.FIRST_NAME = correctCase(firstName);
-    						constants.LAST_NAME = correctCase(lastName);
+    						constants.FIRST_NAME = firstName;
+    						constants.LAST_NAME = lastName;
 
     						console.log(constants.FIRST_NAME);
     						console.log(constants.LAST_NAME);
@@ -197,7 +212,7 @@ function correctCase(input) {
 //Display the UI
 function showMainPage() {
 	$("#load-page").hide();
-	$(".nameheader").text("Welcome, " + constants.FIRST_NAME + " " + constants.LAST_NAME);
+	$("#welcome").text("hello, " + constants.FIRST_NAME + " " + constants.LAST_NAME);
 	console.log("Finished. Main Page Displayed.");
 	$("#main-page").show();
 }
@@ -205,7 +220,7 @@ function showMainPage() {
 //Log out the current user and delete all data.
 function logout() {
 	$("#main-page").hide();
-	$("#load-page").show()
+	$("#load-page").show();
 	$.ajax ({
 		type: "GET",
 		dataType: "html",
@@ -233,4 +248,11 @@ function uninstall() {
 	localStorage.clear();
 	console.log("Uninstalled.");
 	chrome.management.uninstallSelf();
+}
+
+//New lines in $(element).text()
+$.fn.multiline = function(text) {
+    this.text(text);
+    this.html(this.html().replace(/\n/g,'<br/>'));
+    return this;
 }

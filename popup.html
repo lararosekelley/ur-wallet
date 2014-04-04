@@ -1,44 +1,49 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<!--Information-->
-		<title>UR Wallet</title>
-		<meta name="description" content="This extension is desgined to provide University of Rochester students with easy access to their Declining and URos balances.">
+		<base target="_blank" />
+		<title>"ur" wallet</title>
 		<meta charset="utf-8">
-		<!--CSS-->
-		<link href='http://fonts.googleapis.com/css?family=Roboto:400,400italic,300,300italic,500,500italic' rel='stylesheet' type='text/css'>
+		<link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic' rel='stylesheet' type='text/css'>
 		<link rel="stylesheet" href="style/style.css">
-		<!--JavaScript-->
 		<script src="lib/jquery-2.1.0.min.js"></script>
         <script src="js/popup.js"></script>
 	</head>
 	<body>
 		<!--Login Page-->
 		<div id="login-page">
-			<h1 id="header">"UR" Wallet</h1>
-			<h1 id="header">University of Rochester</h1>
+			<h1 id="title">"ur" wallet<br>university of rochester</h1>
 			<form id="login-form">
-				<input type="text" id="netid" placeholder="Net ID"></input>
-				<input type="password" id="password" placeholder="Password"></input><br>
-				<button id="login">Login</button>
-				<button id="uninstall">Uninstall</button>
-				<p id="status">Enter your NetID and Password.</p>
+				<input type="text" class="text" id="netid" placeholder="net id">
+				<input type="password" class="text" id="password" placeholder="password">
+				<input type="submit" class="button" id="login" value="yes" alt="login">
+				<input type="submit" class="button" id="uninstall" value="no" alt="uninstall">
+				<a href="http://tylucaskelley.com" id="credits">say hi</a>
 			</form>
 		</div>
 
 		<!--Loading Page-->
-		<img src="img/loader.gif" id="load-page"></img>
+		<div id="load-page">
+			<div id="bowlG">
+				<div id="bowl_ringG">
+					<div class="ball_holderG">
+						<div class="ballG">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 
 		<!--Main Page-->
 		<div id="main-page">
-			<h1 id="header" class="nameheader"></h1>
-			<div id="content">
-                <h1 id = "funds">Your Funds</h1>
-                <h1 id = "declining">Loading Declining...</h1>   
-                <h1 id = "uros">Loading URos...</h1>
-                <button id="logout">Logout</button>
-                <!--Add the Add Funds button Later...-->
-            </div>
+			<h1 id="welcome"></h1>
+			<form id="main-form" action="https://ecard.sequoiars.com/rochester/eCardCardholder/StudentDepositPage.aspx">
+	            <p id ="funds">your funds</p>
+	            <p id ="declining">loading declining...</p>   
+	            <p id ="uros">loading uros...</p>
+	            <input type="submit" action="" class="button" id="deposit" value="deposit">
+	            <input type="submit" class="button" id="logout" value="exit">
+	        </form>
 		</div>
 	</body>
 </html>
