@@ -1,7 +1,7 @@
 //JQuery Function
 jQuery.fn.exists = function() {
 	return this.length > 0;
-}
+};
 
 //Chrome Storage and Info
 var storage = chrome.storage.sync;
@@ -17,17 +17,17 @@ var constants = {
     SEQUOIA_AUTH_URL : "https://ecard.sequoiars.com/eCardServices/AuthenticationHandler.ashx",
     SEQUOIA_BALANCE_URL : "https://ecard.sequoiars.com/eCardServices/eCardServices.svc/WebHttp/GetAccountHolderInformationForCurrentUser",
     SEQUOIA_ADDFUNDS_URL : "https://ecard.sequoiars.com/rochester/eCardCardholder/StudentDepositPage.aspx"
-}
+};
 
 //First function to execute: Handles all button clicks as well
 $(document).ready(function() {
-	console.log("UR Wallet: Version 1.0");
+	console.log("UR Wallet");
 	checkStorage();
-	//Login Button 
+	//Login Button
 	$("#login").click(function(event) {
 		event.preventDefault();
 		console.log("Form filled out! Login started...");
-		if ($("#netid").val() != "" && $("#password").val() != "") {
+		if ($("#netid").val() !== "" && $("#password").val() !== "") {
 			console.log("Moving to BB login...");
 			bbLogin($("#netid").val(), $("#password").val());
 		} else {
@@ -40,7 +40,7 @@ $(document).ready(function() {
 				$("#title").multiline("\"ur\" wallet\nuniversity of rochester");
 				$("#title").css("color", "#666");
 				$("#title").css("text-shadow", "none");
-        	}, 1500);
+			}, 1500);
 		}
 	});
 	//Logout Button
@@ -49,12 +49,6 @@ $(document).ready(function() {
 		console.log("Logging out...");
 		logout();
 	});
-	//Uninstall Button
-	$("#uninstall").click(function(event) {
-		event.preventDefault();
-		console.log("Uninstalling UR Wallet.");
-		uninstall();
-	});
 });
 
 //Check to see if NetID and Password stored
@@ -62,7 +56,7 @@ function checkStorage() {
 	console.log("Checking Chrome storage...");
 	$("#load-page").show();
 	storage.get(["username", "password"], function(result) {
-		if (result.username != null && result.password != null) {
+		if ((result.username !== undefined && result.username !== null) && (result.password !== undefined && result.password !== null)) {
 			console.log("Data found! Moving to BB login...");
 			//Move to bbLogin
 			bbLogin(result.username, result.password);
@@ -80,7 +74,6 @@ function bbLogin(username, password) {
 	$("#login-page").hide();
 	$("#load-page").show();
 	console.log("Attempting BlackBoard login...");
-
 	var id = username;
 	var pw = password;
 
@@ -110,7 +103,7 @@ function bbLogin(username, password) {
 					$("#title").multiline("\"ur\" wallet\nuniversity of rochester");
 					$("#title").css("color", "#666");
 					$("#title").css("text-shadow", "none");
-         		}, 1500);
+				}, 1500);
 			} else {
 				//Login Success!
 				console.log("Logged into BB! Moving to Sequoia Login...");
@@ -135,7 +128,7 @@ function sequoiaLogin() {
 		success: function(data) {
 			$data = $(data);
 			constants. SEQUOIA_AUTH_TOKEN = $("input[name = 'AUTHENTICATIONTOKEN']", $data).attr('value');
-				
+
 			$.ajax ({
 				type: "POST",
 				dataType: "html",
@@ -152,42 +145,55 @@ function sequoiaLogin() {
 							$data = jQuery.parseJSON(data);
 							console.log("Login Success! Sequoia Data:");
 							console.log($data);
+							var uros, rawUros, declining, rawDeclining;
 
-							var uros = $data.d._ItemList[0].BalanceInDollarsStr;
-                            var rawUros = $data.d._ItemList[0].BalanceInDollars;
-                            var declining = $data.d._ItemList[1].BalanceInDollarsStr;
-                            var rawDeclining = $data.d._ItemList[1].BalanceInDollars;
+							try {
+								uros = $data.d._ItemList[0].BalanceInDollarsStr;
+								rawUros = $data.d._ItemList[0].BalanceInDollars;
+							} catch(err) {
+								uros = "$0.00";
+								rawUros = 0;
+							}
 
-                            $("#declining").text("declining: " + declining);
-                            	if (rawDeclining < 50) {
-                                	$("#declining").addClass("low");
-                                } else if (rawDeclining > 50 && rawDeclining < 100 ) {
-                                    $("#declining").addClass("medium");
-                                } else if (rawDeclining > 100 ) {
-                                    $("#declining").addClass("high");
-                                }
-                            $("#uros").text("uros: " + uros);
-                           		if (rawUros < 10) {
-                                	$("#uros").addClass("low");
-                                } else if (rawUros > 10 && rawDeclining < 25 ) {
-                                    $("#uros").addClass("medium");
-                                } else if (rawUros > 25 ) {
-                                    $("#uros").addClass("high");
-                                }
+							try {
+								declining = $data.d._ItemList[1].BalanceInDollarsStr;
+								rawDeclining = $data.d._ItemList[1].BalanceInDollars;
+							} catch(err) {
+								declining = "$0.00";
+								rawDeclining = 0;
+							}
 
-                            console.log("Fetching name from Sequoia...");
-							var name = $data.d.FullName.toLowerCase();
-    						var firstName = name.split(", ")[1];
-    						var lastName = name.split(", ")[0];
+              $("#declining").text("declining: " + declining);
+							if (rawDeclining < 50) {
+								$("#declining").addClass("low");
+              } else if (rawDeclining > 50 && rawDeclining < 100 ) {
+                $("#declining").addClass("medium");
+              } else if (rawDeclining > 100 ) {
+                $("#declining").addClass("high");
+              }
 
-    						constants.FIRST_NAME = firstName;
-    						constants.LAST_NAME = lastName;
+							$("#uros").text("uros: " + uros);
+							if (rawUros < 10) {
+								$("#uros").addClass("low");
+              } else if (rawUros > 10 && rawDeclining < 25 ) {
+              	$("#uros").addClass("medium");
+              } else if (rawUros > 25 ) {
+                $("#uros").addClass("high");
+              }
 
-    						console.log(constants.FIRST_NAME);
-    						console.log(constants.LAST_NAME);
+                console.log("Fetching name from Sequoia...");
+								var name = $data.d.FullName.toLowerCase();
+								var firstName = name.split(", ")[1];
+								var lastName = name.split(", ")[0];
 
-                            console.log("Name and Balances Updated!");
-                            showMainPage();
+								constants.FIRST_NAME = firstName;
+								constants.LAST_NAME = lastName;
+
+								console.log(constants.FIRST_NAME);
+								console.log(constants.LAST_NAME);
+
+								console.log("Name and Balances Updated!");
+								showMainPage();
 						}
 					});
 				}
@@ -212,9 +218,14 @@ function correctCase(input) {
 //Display the UI
 function showMainPage() {
 	$("#load-page").hide();
-	$("#welcome").text("hello, " + constants.FIRST_NAME + " " + constants.LAST_NAME);
-	console.log("Finished. Main Page Displayed.");
-	$("#main-page").show();
+	if (constants.FIRST_NAME === undefined || constants.LAST_NAME === undefined) {
+			storage.set({"username": null, "password": null});
+			logout();
+	} else {
+			$("#welcome").text("hello, " + constants.FIRST_NAME + " " + constants.LAST_NAME);
+			console.log("Finished. Main Page Displayed.");
+			$("#main-page").show();
+	}
 }
 
 //Log out the current user and delete all data.
@@ -242,17 +253,9 @@ function logout() {
 	console.log("Logged out.");
 }
 
-//Uninstall the Extension
-function uninstall() {
-	storage.clear();
-	localStorage.clear();
-	console.log("Uninstalled.");
-	chrome.management.uninstallSelf();
-}
-
 //New lines in $(element).text()
 $.fn.multiline = function(text) {
     this.text(text);
     this.html(this.html().replace(/\n/g,'<br/>'));
     return this;
-}
+};

@@ -2,10 +2,10 @@
   "manifest_version": 2,
   "name": "UR Wallet",
   "description": "A tool that lets University of Rochester students see their Declining and URos balances!",
-  "version": "2.1",
+  "version": "2.2",
 
   "permissions": [
-    "http://*/*", 
+    "http://*/*",
     "https://*/*",
     "*://my.rochester.edu/*",
     "*://ecard.sequoiars.com/*",

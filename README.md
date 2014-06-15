@@ -11,13 +11,17 @@ This extension is desgined to provide University of Rochester students with easy
 
 ####Screenshots
 
-![One](img/one.png "One")
+Login Screen
 
+![One](img/login.png "One")
 
-![Two](img/two.png "Two")
+Error Page
 
+![Two](img/oops.png "Two")
 
-![Three](img/three.png "Three")
+Main View
+
+![Three](img/main.png "Three")
 
 **LICENSE**
 

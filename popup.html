@@ -5,9 +5,9 @@
 		<title>"ur" wallet</title>
 		<meta charset="utf-8">
 		<link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic' rel='stylesheet' type='text/css'>
-		<link rel="stylesheet" href="style/style.css">
+		<link rel="stylesheet" href="css/style.css">
 		<script src="lib/jquery-2.1.0.min.js"></script>
-        <script src="js/popup.js"></script>
+    <script src="js/popup.js"></script>
 	</head>
 	<body>
 		<!--Login Page-->
@@ -16,22 +16,14 @@
 			<form id="login-form">
 				<input type="text" class="text" id="netid" placeholder="net id">
 				<input type="password" class="text" id="password" placeholder="password">
-				<input type="submit" class="button" id="login" value="yes" alt="login">
-				<input type="submit" class="button" id="uninstall" value="no" alt="uninstall">
+				<input type="submit" class="button" id="login" value="login" alt="login"><br>
 				<a href="http://tylucaskelley.com" id="credits">say hi</a>
 			</form>
 		</div>
 
 		<!--Loading Page-->
 		<div id="load-page">
-			<div id="bowlG">
-				<div id="bowl_ringG">
-					<div class="ball_holderG">
-						<div class="ballG">
-						</div>
-					</div>
-				</div>
-			</div>
+			<p id="loading">loading...</p>
 		</div>
 
 		<!--Main Page-->
@@ -39,7 +31,7 @@
 			<h1 id="welcome"></h1>
 			<form id="main-form" action="https://ecard.sequoiars.com/rochester/eCardCardholder/StudentDepositPage.aspx">
 	            <p id ="funds">your funds</p>
-	            <p id ="declining">loading declining...</p>   
+	            <p id ="declining">loading declining...</p>
 	            <p id ="uros">loading uros...</p>
 	            <input type="submit" action="" class="button" id="deposit" value="deposit">
 	            <input type="submit" class="button" id="logout" value="exit">
