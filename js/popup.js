@@ -151,7 +151,7 @@ function sequoiaLogin() {
 								uros = $data.d._ItemList[0].BalanceInDollarsStr;
 								rawUros = $data.d._ItemList[0].BalanceInDollars;
 							} catch(err) {
-								uros = "$0.00";
+								uros = "$ 0.00";
 								rawUros = 0;
 							}
 
@@ -159,7 +159,7 @@ function sequoiaLogin() {
 								declining = $data.d._ItemList[1].BalanceInDollarsStr;
 								rawDeclining = $data.d._ItemList[1].BalanceInDollars;
 							} catch(err) {
-								declining = "$0.00";
+								declining = "$ 0.00";
 								rawDeclining = 0;
 							}
 

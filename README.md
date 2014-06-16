@@ -3,7 +3,7 @@ _2014 Ty-Lucas Kelley and Casey Waldren_
 
 _Get it on the [Chrome Web Store](https://chrome.google.com/webstore/detail/ur-wallet/mimeggmmcphbjpangefbghnfhbaaacnm)!_
 
-_Version: 2.1, Last Updated: 4/4/2014_
+_Version: 2.2.1, Last Updated: 6/15/2014_
 
 ####Description
 
