@@ -5,7 +5,7 @@
 h1 {
 	font-family: 'Lato', Helvetica, sans-serif;
 	font-weight: 300;
-	font-size: 1.25em;
+	font-size: 1.75em;
 	font-style: italic;
 	text-align: center;
 	color: #666;
@@ -15,7 +15,7 @@ p {
 	color: lightgray;
 	font-family: 'Lato', Helvetica, sans-serif;
 	font-weight: 300;
-	font-size: 1.25em;
+	font-size: 1.75em;
 	text-align: center;
 }
 
@@ -43,7 +43,7 @@ p {
 	text-align: center;
 	font-family: 'Lato', Helvetica, sans-serif;
 	font-weight: 300;
-	font-size: 1.25em;
+	font-size: 1.75em;
 	text-decoration: none;
 	color: lightgray;
 }
@@ -95,7 +95,7 @@ img {
 input {
 	font-family: 'Lato', Helvetica, sans-serif;
 	text-align: center;
-	font-size: 1.25em;
+	font-size: 1.75em;
 	font-weight: 300;
 	background: transparent;
 	border: none;
