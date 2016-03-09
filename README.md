@@ -5,6 +5,8 @@ _Get it on the [Chrome Web Store](https://chrome.google.com/webstore/detail/ur-w
 
 _Version: 2.2.1, Last Updated: 6/15/2014_
 
+**NOTE**: This project is no longer maintained.
+
 ####Description
 
 This extension is desgined to provide University of Rochester students with easy access to their Declining and URos balances. Get it from the Chrome Webstore today!
